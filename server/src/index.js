@@ -1,4 +1,5 @@
 const express = require('express')
+const knex = require('./knex/knex.js')
 const app = express()
 const PORT = 3333
 const HOST = '0.0.0.0'
