@@ -11,18 +11,21 @@ router.get('/', (req, res) => {
 
 //Student routes
 router.get('/students', StudentController.index)
+router.get('/students/:ïd', StudentController.details)
 router.post('/students', celebrate({
     [Segments.BODY]: Joi.object().keys({
         name: Joi.string().required(),
         code: Joi.string().required(),
         email: Joi.string().email().required(),
-        phone: Joi.string().required()
+        phone: Joi.string().required(),
+        course: Joi.number().required(),
     })
 }), StudentController.create)
 router.delete('/students/:id', StudentController.delete)
 
 //Team routes
 router.get('/teams', TeamController.index)
+router.get('/teams/:id', TeamController.details)
 router.post('/teams', celebrate({
     [Segments.BODY]: Joi.object().keys({
         name: Joi.string().required()
@@ -32,6 +35,7 @@ router.delete('/teams/:id', TeamController.delete)
 
 //Course routes
 router.get('/courses', CourseController.index)
+router.get('/courses/:id', CourseController.details)
 router.post('/courses', celebrate({
     [Segments.BODY]: Joi.object().keys({
         name: Joi.string().required(),

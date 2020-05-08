@@ -33,5 +33,18 @@ module.exports = {
             return res.send(e)
         }
 
+    },
+
+    async details(req, res){
+        try{
+            const id = req.params.id
+            const course = await knex('courses').where('id', id).first()
+            if(!course){
+                return res.sendStatus(404)
+            }
+            return res.json(course)
+        }catch (e) {
+            return res.send(e)
+        }
     }
 }
