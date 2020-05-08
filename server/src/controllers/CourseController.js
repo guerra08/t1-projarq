@@ -1,11 +1,11 @@
-const Student = require('../models/Student')
+const Course = require('../models/Course')
 const knex = require('../database/knex')
 
 module.exports = {
     async create(req, res){
         try {
-            const student = Student.createStudent(req.body)
-            const [id] = await knex('students').insert(student)
+            const course = Course.createCourse(req.body)
+            const [id] = await knex('courses').insert(course)
             return res.json({"id": id})
         }catch (e) {
             return res.send(e)
@@ -13,10 +13,10 @@ module.exports = {
     },
 
     async delete(req, res){
-        try {
+        try{
             const id = req.params.id
-            const op = await knex('students').where('id', id).delete()
-            if (!op) {
+            const op = await knex('courses').where('id', id).delete()
+            if(!op){
                 return res.sendStatus(204)
             }
             return res.sendStatus(200)
@@ -27,10 +27,11 @@ module.exports = {
 
     async index(req, res){
         try{
-            const students = await knex('students').select('*')
-            return res.json(students)
-        } catch (e) {
+            const courses = await knex('courses').select('*')
+            return res.json(courses)
+        }catch (e) {
             return res.send(e)
         }
+
     }
 }

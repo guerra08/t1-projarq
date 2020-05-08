@@ -14,16 +14,24 @@ module.exports = {
     },
 
     async delete(req, res){
-        const id =  req.param.id
-        const op = await knex('teams').where('id', id).delete()
-        if(!op){
-            return res.sendStatus(204)
+        try{
+            const id =  req.param.id
+            const op = await knex('teams').where('id', id).delete()
+            if(!op){
+                return res.sendStatus(204)
+            }
+            return res.sendStatus(200)
+        }catch (e) {
+            return res.send(e)
         }
-        return res.sendStatus(200)
     },
 
     async index(req, res){
-        const teams = await knex('teams').select('*')
-        return res.json(teams)
+        try{
+            const teams = await knex('teams').select('*')
+            return res.json(teams)
+        }catch (e) {
+            return res.send(e)
+        }
     }
 }
