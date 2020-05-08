@@ -5,13 +5,13 @@ module.exports = {
   development: {
     client: 'sqlite3',
     connection: {
-      filename: __dirname + '/src/knex/devDB.sqlite3',
+      filename: __dirname + '/src/database/devDB.sqlite3',
     },
     migrations: {
-      directory: __dirname + '/src/knex/migrations',
+      directory: __dirname + '/src/database/migrations',
     },
     seeds: {
-      directory: __dirname + '/src/knex/seeds'
+      directory: __dirname + '/src/database/seeds'
     },
     useNullAsDefault: true
   },
