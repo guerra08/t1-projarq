@@ -1,0 +1,16 @@
+.teamContainer {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: column;
+}
+
+.teamContainer select {
+    margin-top: 10%;
+}
+
+.button {
+    max-width: 300px;
+    margin-bottom: 10%;
+}

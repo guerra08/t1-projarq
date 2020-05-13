@@ -6,7 +6,7 @@ import { FiLogIn } from 'react-icons/fi'
 
 import './styles.css'
 
-export default function Logon() {
+export default function Login() {
   const [id, setId] = useState('')
   const [userType, setUserType] = useState('')
   // const history = useHistory()
@@ -46,11 +46,11 @@ export default function Logon() {
           <div className="option" onChange={(e) => setUser(e)}>
             <div className="professor">
               <input type="radio" value="professor" name="option" />
-              Professor
+              <p className="color">Professor</p>
             </div>
             <div className="student">
               <input type="radio" value="student" name="option" />
-              Aluno
+              <p className="color">Aluno</p>
             </div>
           </div>
 
