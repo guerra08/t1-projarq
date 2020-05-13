@@ -3,6 +3,7 @@ const { celebrate, Joi, errors, Segments } = require('celebrate');
 const StudentController = require('./controllers/StudentController')
 const TeamController = require('./controllers/TeamController')
 const CourseController = require('./controllers/CourseController')
+const ProfessorController = require('./controllers/ProfessorController')
 const router = express.Router()
 
 router.get('/', (req, res) => {
@@ -22,6 +23,19 @@ router.post('/students', celebrate({
     })
 }), StudentController.create)
 router.delete('/students/:id', StudentController.delete)
+
+//Professor routes
+router.get('/professors', ProfessorController.index)
+router.get('/professors/:id', ProfessorController.details)
+router.post('professors', celebrate({
+    [Segments.BODY]: Joi.object().keys({
+        name: Joi.string().required(),
+        code: Joi.string().required(),
+        email: Joi.string().email().required(),
+        phone: Joi.string().required()
+    })
+}), ProfessorController.create)
+router.delete('/professors/:id', ProfessorController.delete)
 
 //Team routes
 router.get('/teams', TeamController.index)
