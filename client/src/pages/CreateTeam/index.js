@@ -74,14 +74,22 @@ export default function CreateTeam() {
   function handleData() {
     let users = []
     data.map((user) => {
+      user['avatar'] = getRandomSvg()
       users.push({ value: user, label: user.name })
     })
+
     return users
   }
 
   async function handleChange(selected) {
     // console.log(selected.value)
-    await setSelectedUsers([...selectedUsers, selected.value])
+    let val = false
+    selectedUsers.map((user) => {
+      if (user.id === selected.value.id) {
+        val = true
+      }
+    })
+    if (!val) await setSelectedUsers([...selectedUsers, selected.value])
   }
 
   function changeButton() {
@@ -119,6 +127,7 @@ export default function CreateTeam() {
           />
         )}
       </div>
+
       <div className="users">
         {selectedUsers.map((user) => (
           <div key={user.id} className="userContainer">
@@ -129,7 +138,7 @@ export default function CreateTeam() {
               >
                 <TiDelete size={48} color="#FF3B30" />
               </button>
-              <img alt="img" src={getRandomSvg()}></img>
+              <img alt="img" src={user.avatar}></img>
               <p>{user.name}</p>
               <p>{user.course_name}</p>
             </div>
