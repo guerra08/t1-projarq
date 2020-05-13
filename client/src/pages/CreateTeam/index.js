@@ -13,6 +13,7 @@ import avatar4 from '../../assets/avatar4.svg'
 
 export default function CreateTeam() {
   const [selectedUsers, setSelectedUsers] = useState([])
+  const [teamName, setTeamName] = useState('')
 
   const data = [
     {
@@ -114,18 +115,29 @@ export default function CreateTeam() {
     await setSelectedUsers(selectedUsers.filter((user) => user.id !== userId))
   }
 
+  function handleInputSelect(e) {
+    setTeamName(e.target.value)
+  }
+
   return (
     <div className="teamContainer">
-      <div className="select">
-        {selectedUsers.length > 4 ? (
-          <Alert variant="danger">Equipe Cheia!</Alert>
-        ) : (
-          <Select
-            onChange={(selected) => handleChange(selected)}
-            options={handleData()}
-            placeholder="Selecione um Aluno"
-          />
-        )}
+      <div className="selectContainer">
+        <input
+          onChange={(e) => handleInputSelect(e)}
+          className="selectInput"
+          placeholder="Nome do Time"
+        ></input>
+        <div className="select">
+          {selectedUsers.length > 4 ? (
+            <Alert variant="danger">Equipe Cheia!</Alert>
+          ) : (
+            <Select
+              onChange={(selected) => handleChange(selected)}
+              options={handleData()}
+              placeholder="Selecione um Aluno"
+            />
+          )}
+        </div>
       </div>
 
       <div className="users">
