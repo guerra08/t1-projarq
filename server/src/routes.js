@@ -23,6 +23,7 @@ router.post('/students', celebrate({
     })
 }), StudentController.create)
 router.delete('/students/:id', StudentController.delete)
+router.post('/students-team', StudentController.addStudentsToTeam)
 
 //Professor routes
 router.get('/professors', ProfessorController.index)

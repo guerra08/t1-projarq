@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import api from '../../services/api'
 // import User from '../../components/User'
 import './styles.css'
 import Select from 'react-select'
@@ -14,71 +15,28 @@ import avatar4 from '../../assets/avatar4.svg'
 export default function CreateTeam() {
   const [selectedUsers, setSelectedUsers] = useState([])
 
-  const data = [
-    {
-      id: 1,
-      name: 'Bruno Guerra',
-      code: '123456789',
-      email: 'gguerrabruno@outlook.com',
-      phone: '998877665544',
-      course_id: 1,
-      course_name: 'Engenharia de Software',
-      course_building: 32,
-    },
-    {
-      id: 2,
-      name: 'Pedro',
-      code: '123456789',
-      email: 'gguerrabruno@outlook.com',
-      phone: '998877665544',
-      course_id: 1,
-      course_name: 'Engenharia de Software',
-      course_building: 32,
-    },
-    {
-      id: 3,
-      name: 'Joao',
-      code: '123456789',
-      email: 'gguerrabruno@outlook.com',
-      phone: '998877665544',
-      course_id: 1,
-      course_name: 'Engenharia da Computação',
-      course_building: 32,
-    },
-    {
-      id: 4,
-      name: 'Rizzotto',
-      code: '123456789',
-      email: 'gguerrabruno@outlook.com',
-      phone: '998877665544',
-      course_id: 1,
-      course_name: 'Engenharia da Computação',
-      course_building: 32,
-    },
-    {
-      id: 5,
-      name: 'Lessa',
-      code: '123456789',
-      email: 'gguerrabruno@outlook.com',
-      phone: '998877665544',
-      course_id: 1,
-      course_name: 'Engenharia da Computação',
-      course_building: 32,
-    },
-  ]
-
   useEffect(() => {
     handleData()
   }, [])
 
-  function handleData() {
-    let users = []
-    data.map((user) => {
-      user['avatar'] = getRandomSvg()
-      users.push({ value: user, label: user.name })
-    })
 
+ function handleData() {
+    let data = []
+    let users = []
+    api.get('/students').then((response) => {
+        data = response.data
+        data.map((user) => {
+            user['avatar'] = getRandomSvg()
+            users.push({ value: user, label: user.name })
+        })
+    })
     return users
+  }
+
+  async function createTeamAndAddStudents(){
+      const students = selectedUsers.map((student) => (student.id))
+      const createdTeamId = (await api.post('/teams', { name: "Trem bala" })).data
+      const addUsers = (await api.post('/students-team', { teamId: createdTeamId, students }))
   }
 
   async function handleChange(selected) {
@@ -146,7 +104,7 @@ export default function CreateTeam() {
         ))}
       </div>
       {changeButton() ? (
-        <button className="button">Criar Time</button>
+        <button className="button" onClick={() => createTeamAndAddStudents()}>Criar Time</button>
       ) : (
         <div>
           <p className="disabled">

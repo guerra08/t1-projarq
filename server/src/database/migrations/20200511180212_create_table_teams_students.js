@@ -5,6 +5,7 @@ exports.up = function(knex) {
         table.foreign('student').references('id').inTable('students');
         table.integer('team').unsigned().notNullable();
         table.foreign('team').references('id').inTable('teams');
+        table.unique(['student', 'team'])
     })
 };
 

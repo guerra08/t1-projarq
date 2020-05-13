@@ -27,7 +27,10 @@ module.exports = {
 
     async index(req, res){
         try{
-            const students = await knex('students').select('*')
+            const students = await knex('students')
+                .select(['students.id', 'students.name', 'students.code', 'students.email', 'students.phone',
+                    'courses.id as course_id', 'courses.name as course_name', 'courses.building as course_building'])
+                .join('courses', 'courses.id', 'students.course')
             return res.json(students)
         } catch (e) {
             return res.send(e)
@@ -42,6 +45,22 @@ module.exports = {
                 return res.sendStatus(404)
             }
             return res.json(student)
+        }catch (e) {
+            return res.send(e)
+        }
+    },
+
+    async addStudentsToTeam(req, res){
+        try{
+            const {teamId, students} = req.body
+            const rows = students.map((student) => {
+                return {'student': student, 'team': teamId}
+            })
+            const op = await knex('teams_students').insert(rows)
+            if(!op){
+                return res.sendStatus(400)
+            }
+            return res.json({"team_id": teamId})
         }catch (e) {
             return res.send(e)
         }

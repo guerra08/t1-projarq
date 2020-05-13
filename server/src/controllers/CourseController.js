@@ -8,6 +8,7 @@ module.exports = {
             const [id] = await knex('courses').insert(course)
             return res.json({"id": id})
         }catch (e) {
+            console.log(e)
             return res.send(e)
         }
     },
