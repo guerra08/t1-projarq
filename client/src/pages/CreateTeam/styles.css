@@ -118,3 +118,16 @@
     max-width: 350px;
     margin-bottom: 5%;
 }
+
+.disabledSvg {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    color: #5A5A5A;
+    font-size: 1.2rem;
+}
+
+.disabledSvg p {
+    margin-top: 4%;
+}
