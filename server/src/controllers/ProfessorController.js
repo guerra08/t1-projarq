@@ -4,8 +4,8 @@ const knex = require('../database/knex')
 module.exports = {
     async create(req, res){
         try {
-            const student = Professor.createProfessor(req.body)
-            const [id] = await knex('professors').insert(student)
+            const professor = Professor.createProfessor(req.body)
+            const [id] = await knex('professors').insert(professor)
             return res.json({"id": id})
         }catch (e) {
             return res.send(e)
@@ -27,8 +27,8 @@ module.exports = {
 
     async index(req, res){
         try{
-            const students = await knex('professors').select('*')
-            return res.json(students)
+            const professors = await knex('professors').select('*')
+            return res.json(professors)
         } catch (e) {
             return res.send(e)
         }
@@ -42,6 +42,19 @@ module.exports = {
                 return res.sendStatus(404)
             }
             return res.json(student)
+        }catch (e) {
+            return res.send(e)
+        }
+    },
+
+    async login(req, res){
+        try{
+            const {code} = req.body
+            const professor = await knex('professors').where('code', code).first()
+            if(!professor){
+                return res.sendStatus(404)
+            }
+            return res.json(professor)
         }catch (e) {
             return res.send(e)
         }

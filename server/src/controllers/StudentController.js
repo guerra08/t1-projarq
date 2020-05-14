@@ -65,5 +65,23 @@ module.exports = {
         }catch (e) {
             return res.send(e)
         }
+    },
+
+    async login(req, res){
+        try{
+            const {code} = req.body
+            const student = await knex('students')
+                .select(['students.id', 'students.name', 'students.code', 'students.email', 'students.phone',
+                    'courses.id as course_id', 'courses.name as course_name', 'courses.building as course_building'])
+                .join('courses', 'courses.id', 'students.course')
+                .where('students.code', '=', code)
+                .first()
+            if(!student){
+                return res.sendStatus(404)
+            }
+            return res.json(student)
+        }catch (e) {
+            return res.send(e)
+        }
     }
 }
