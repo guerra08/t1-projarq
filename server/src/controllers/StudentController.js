@@ -52,7 +52,8 @@ module.exports = {
 
     async addStudentsToTeam(req, res){
         try{
-            const {teamId, students} = req.body
+            const teamId  = req.body.teamId
+            const students = req.body.students
             const rows = students.map((student) => {
                 return {'student': student, 'team': teamId}
             })
@@ -60,7 +61,7 @@ module.exports = {
             if(!op){
                 return res.sendStatus(400)
             }
-            return res.json({"team_id": teamId})
+            return res.sendStatus(201)
         }catch (e) {
             return res.send(e)
         }

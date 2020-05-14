@@ -15,6 +15,7 @@ import avatar4 from '../../assets/avatar4.svg'
 export default function CreateTeam() {
   const [selectedUsers, setSelectedUsers] = useState([])
   const [teamName, setTeamName] = useState('')
+  const [hasInserted, setHasInserted] = useState(false)
 
   useEffect(() => {
     handleData()
@@ -36,12 +37,14 @@ export default function CreateTeam() {
 
   async function createTeamAndAddStudents(){
       const students = selectedUsers.map((student) => (student.id))
-      const createdTeamId = (await api.post('/teams', { name: "Trem bala" })).data
+      const createdTeamId = (await api.post('/teams', { name: teamName })).data.id
       const addUsers = (await api.post('/students-team', { teamId: createdTeamId, students }))
+      if(addUsers.status === 201){
+          await setHasInserted(true)
+      }
   }
 
   async function handleChange(selected) {
-    // console.log(selected.value)
     let val = false
     selectedUsers.map((user) => {
       if (user.id === selected.value.id) {
@@ -73,8 +76,8 @@ export default function CreateTeam() {
     await setSelectedUsers(selectedUsers.filter((user) => user.id !== userId))
   }
 
-  function handleInputSelect(e) {
-    setTeamName(e.target.value)
+  async function handleInputSelect(e) {
+    await setTeamName(e.target.value)
   }
 
   return (
@@ -115,9 +118,14 @@ export default function CreateTeam() {
           </div>
         ))}
       </div>
-      {changeButton() ? (
-        <button className="button" onClick={() => createTeamAndAddStudents()}>Criar Time</button>
-      ) : (
+      {hasInserted ? (
+          <button className="createdTeam" disabled="true">
+              Time Criado
+          </button>
+      ) : (changeButton()) ?
+          (
+            <button className="button" onClick={() => createTeamAndAddStudents()}>Criar Time</button>
+          ):(
         <div>
           <p className="disabled">
             Pelo menos 2 participantes de cursos distintos
