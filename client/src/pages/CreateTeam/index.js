@@ -11,6 +11,7 @@ import avatar1 from '../../assets/avatar1.svg'
 import avatar2 from '../../assets/avatar2.svg'
 import avatar3 from '../../assets/avatar3.svg'
 import avatar4 from '../../assets/avatar4.svg'
+import disabledSvg from '../../assets/disabled.svg'
 
 export default function CreateTeam() {
   const [selectedUsers, setSelectedUsers] = useState([])
@@ -21,27 +22,29 @@ export default function CreateTeam() {
     handleData()
   }, [])
 
-
- function handleData() {
+  function handleData() {
     let data = []
     let users = []
     api.get('/students').then((response) => {
-        data = response.data
-        data.map((user) => {
-            user['avatar'] = getRandomSvg()
-            users.push({ value: user, label: user.name })
-        })
+      data = response.data
+      data.map((user) => {
+        user['avatar'] = getRandomSvg()
+        users.push({ value: user, label: user.name })
+      })
     })
     return users
   }
 
-  async function createTeamAndAddStudents(){
-      const students = selectedUsers.map((student) => (student.id))
-      const createdTeamId = (await api.post('/teams', { name: teamName })).data.id
-      const addUsers = (await api.post('/students-team', { teamId: createdTeamId, students }))
-      if(addUsers.status === 201){
-          await setHasInserted(true)
-      }
+  async function createTeamAndAddStudents() {
+    const students = selectedUsers.map((student) => student.id)
+    const createdTeamId = (await api.post('/teams', { name: teamName })).data.id
+    const addUsers = await api.post('/students-team', {
+      teamId: createdTeamId,
+      students,
+    })
+    if (addUsers.status === 201) {
+      await setHasInserted(true)
+    }
   }
 
   async function handleChange(selected) {
@@ -100,32 +103,40 @@ export default function CreateTeam() {
           )}
         </div>
       </div>
-
-      <div className="users">
-        {selectedUsers.map((user) => (
-          <div key={user.id} className="userContainer">
-            <div className="user">
-              <button
-                className="removeUser"
-                onClick={() => handleClick(user.id)}
-              >
-                <TiDelete size={48} color="#FF3B30" />
-              </button>
-              <img alt="img" src={user.avatar}></img>
-              <p>{user.name}</p>
-              <p>{user.course_name}</p>
+      {selectedUsers.length === 0 ? (
+        <div className="disabledSvg">
+          <img src={disabledSvg} alt="disabled"></img>
+          <p>Você não sugeriu um time ainda!</p>
+        </div>
+      ) : (
+        <div className="users">
+          {selectedUsers.map((user) => (
+            <div key={user.id} className="userContainer">
+              <div className="user">
+                <button
+                  className="removeUser"
+                  onClick={() => handleClick(user.id)}
+                >
+                  <TiDelete size={48} color="#FF3B30" />
+                </button>
+                <img alt="img" src={user.avatar}></img>
+                <p>{user.name}</p>
+                <p>{user.course_name}</p>
+              </div>
             </div>
-          </div>
-        ))}
-      </div>
+          ))}
+        </div>
+      )}
+
       {hasInserted ? (
-          <button className="createdTeam" disabled="true">
-              Time Criado
-          </button>
-      ) : (changeButton()) ?
-          (
-            <button className="button" onClick={() => createTeamAndAddStudents()}>Criar Time</button>
-          ):(
+        <button className="createdTeam" disabled="true">
+          Time Criado
+        </button>
+      ) : changeButton() ? (
+        <button className="button" onClick={() => createTeamAndAddStudents()}>
+          Criar Time
+        </button>
+      ) : (
         <div>
           <p className="disabled">
             Pelo menos 2 participantes de cursos distintos
