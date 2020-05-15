@@ -5,6 +5,7 @@ import Login from './pages/Login'
 import CreateTeam from './pages/CreateTeam'
 import EvaluateTeam from './pages/EvaluateTeam'
 import UploadTeam from './pages/UploadTeam'
+import DeleteTeam from './pages/DeleteTeam'
 
 export default function Routes() {
   return (
@@ -14,6 +15,7 @@ export default function Routes() {
         <Route path="/main" component={CreateTeam} />
         <Route path="/evaluate" component={EvaluateTeam} />
         <Route path="/upload" component={UploadTeam} />
+        <Route path="/delete" component={DeleteTeam} />
       </Switch>
     </BrowserRouter>
   )
