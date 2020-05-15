@@ -81,11 +81,13 @@ export default function EvaluateTeam() {
     await setShowModal(false)
   }
 
-  function evaluateButton(number) {
-    // console.log(number)
-    console.log(document.getElementById('oi'))
-    document.getElementById(number).style.border =
-      '10px solid rgb(99, 112, 255)'
+  function evaluateButton(number, item) {
+    document.getElementById(number).style.border = '3px solid #5a5a5a'
+    item.buttons.map((button) => {
+      if (number !== button.id) {
+        document.getElementById(button.id).style.border = '0px'
+      }
+    })
   }
 
   return (
@@ -133,7 +135,7 @@ export default function EvaluateTeam() {
                   <div className="item">
                     {item.buttons.map((button) => (
                       <button
-                        onClick={() => evaluateButton(button.id)}
+                        onClick={() => evaluateButton(button.id, item)}
                         id={button.id}
                       >
                         {button.number}
