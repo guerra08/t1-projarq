@@ -42,6 +42,7 @@ router.post('/professors/login', ProfessorController.login)
 
 //Team routes
 router.get('/teams', TeamController.index)
+router.get('/teams-complete', TeamController.indexComplete)
 router.get('/teams/:id', TeamController.details)
 router.post('/teams', celebrate({
     [Segments.BODY]: Joi.object().keys({
