@@ -12,13 +12,17 @@ import evaluate from '../utils/evaluate'
 
 export default function TeamList({ data, disableButtonTeam }) {
   const [showModal, setShowModal] = useState(false)
-  const [stateData, setStateData] = useState(data)
+  const [stateData, setStateData] = useState([])
 
   const [workingSoftware, setWorkingSoftware] = useState('')
   const [process, setProcess] = useState('')
   const [pitch, setPitch] = useState('')
   const [innovation, setInnovation] = useState('')
   const [teamFormation, setTeamFormation] = useState('')
+
+  useEffect(() => {
+    setStateData(data)
+  }, [data])
 
   function getRandomSvg() {
     let vector = [team0, team1, team2, team3]
@@ -107,7 +111,7 @@ export default function TeamList({ data, disableButtonTeam }) {
                         </p>
 
                         <p>
-                          Score atual: <strong>8</strong>
+                          Score atual: <strong>{team.score.value}</strong>
                         </p>
                       </div>
                     </div>
@@ -130,7 +134,7 @@ export default function TeamList({ data, disableButtonTeam }) {
                           })}
                         </p>
                         <p>
-                          Score atual: <strong>8</strong>
+                          Score atual: <strong>{team.score.value}</strong>
                         </p>
                       </div>
                       <button

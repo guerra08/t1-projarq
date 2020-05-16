@@ -35,6 +35,29 @@ module.exports = {
         }
     },
 
+    async indexComplete(req, res){
+        try{
+            const teamsData = await knex.raw(`select t.id as id, t.name as name from teams t`)
+            if(!teamsData || teamsData.length === 0){
+                return res.sendStatus(404)
+            }
+            let complete = []
+            for (const item of teamsData) {
+                complete.push(
+                    {
+                        id: item.id,
+                        name: item.name,
+                        participants: ((await knex.raw('select s.name from teams_students ts, students s where ts.team = ? and ts.student = s.id', [item.id]))),
+                        score: ((await knex.raw('select (sum(tr.working) +  sum(tr.process) + sum(tr.team_formation) + sum(tr.pitch) + sum(tr.innovation) / count(*)) as value from teams_ratings tr where tr.id = ?', [item.id])))[0]
+                    }
+                )
+            }
+            return res.send(complete)
+        }catch (e) {
+            return res.send(e)
+        }
+    },
+
     async details(req, res){
         try{
             const id = req.params.id
