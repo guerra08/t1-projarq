@@ -39,6 +39,7 @@ router.post('professors', celebrate({
 }), ProfessorController.create)
 router.delete('/professors/:id', ProfessorController.delete)
 router.post('/professors/login', ProfessorController.login)
+router.post('/professors/evaluate', ProfessorController.evaluateTeam)
 
 //Team routes
 router.get('/teams', TeamController.index)

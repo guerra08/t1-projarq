@@ -2,41 +2,54 @@ import React, { useState, useEffect } from 'react'
 import './TeamList.css'
 import { Modal, Button } from 'react-bootstrap'
 import { TiDelete } from 'react-icons/ti'
-
+import api from '../services/api'
 import disabledTeam from '../assets/disabledTeam.svg'
-import team0 from '../assets/team1.svg'
-import team1 from '../assets/team2.svg'
-import team2 from '../assets/team3.svg'
-import team3 from '../assets/team4.svg'
 import evaluate from '../utils/evaluate'
 
 export default function TeamList({ data, disableButtonTeam }) {
   const [showModal, setShowModal] = useState(false)
+  const [teamId, setTeamId] = useState(-1)
   const [stateData, setStateData] = useState([])
 
-  const [workingSoftware, setWorkingSoftware] = useState('')
-  const [process, setProcess] = useState('')
-  const [pitch, setPitch] = useState('')
-  const [innovation, setInnovation] = useState('')
-  const [teamFormation, setTeamFormation] = useState('')
+  const [workingSoftware, setWorkingSoftware] = useState(0)
+  const [process, setProcess] = useState(0)
+  const [pitch, setPitch] = useState(0)
+  const [innovation, setInnovation] = useState(0)
+  const [teamFormation, setTeamFormation] = useState(0)
 
   useEffect(() => {
     setStateData(data)
   }, [data])
 
-  function getRandomSvg() {
-    let vector = [team0, team1, team2, team3]
-    return vector[Math.floor(Math.random() * 4)]
-  }
-
   async function handleButton(team) {
+    await setTeamId(team.id)
     await setShowModal(true)
   }
 
-  const handleClose = () => setShowModal(false)
+  const handleClose = () => {
+    cleanValues()
+    setShowModal(false)
+  }
+
+  async function cleanValues(){
+    await setWorkingSoftware(0)
+    await setProcess(0)
+    await setPitch(0)
+    await setInnovation(0)
+    await setTeamFormation(0)
+  }
 
   async function createEvaluation() {
-    // console.log(team)
+    const res = await api.post('/professors/evaluate', {
+      team: teamId,
+      professor: 1,
+      working: workingSoftware,
+      process,
+      pitch,
+      innovation,
+      team_formation: teamFormation
+    })
+    console.log(res)
     await setShowModal(false)
   }
 
@@ -95,7 +108,7 @@ export default function TeamList({ data, disableButtonTeam }) {
                     <div className="insideButton">
                       {/* {console.log(team.avatar)} */}
                       {/* alterar com dados da api */}
-                      <img src={getRandomSvg()} alt="team"></img>
+                      <img src={team.avatar} alt="team"></img>
                       <div>
                         <p>
                           <strong>{team.name}</strong>
@@ -119,7 +132,7 @@ export default function TeamList({ data, disableButtonTeam }) {
                 ) : (
                   <div className="listButton">
                     <div className="insideButton">
-                      <img src={getRandomSvg()} alt="team"></img>
+                      <img src={team.avatar} alt="team"></img>
                       <div>
                         <p>
                           <strong>{team.name}</strong>

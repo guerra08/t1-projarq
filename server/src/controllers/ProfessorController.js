@@ -58,5 +58,18 @@ module.exports = {
         }catch (e) {
             return res.send(e)
         }
+    },
+
+    async evaluateTeam(req, res){
+        try{
+            const row = req.body
+            const inserted = await knex('teams_ratings').insert(row)
+            if(!inserted){
+                return res.sendStatus(400)
+            }
+            return res.sendStatus(201)
+        }catch (e) {
+            return res.send(e)
+        }
     }
 }
