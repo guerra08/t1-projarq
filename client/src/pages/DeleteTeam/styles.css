@@ -6,11 +6,12 @@
     flex-direction: column;
 }
 
-.title {
+.titleDelete {
     font-size: 2.4rem;
     color: #5a5a5a;
     font-weight: bold;
 }
+
 
 
 .removeTeam {

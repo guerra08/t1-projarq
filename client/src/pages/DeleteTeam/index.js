@@ -77,7 +77,7 @@ export default function DeleteTeam() {
 
   return (
     <div className="deleteContainer">
-      <p className="title">Times Criados</p>
+      <p className="titleDelete">Times Criados</p>
       <TeamList disableButtonTeam={true} data={data} />
     </div>
   )

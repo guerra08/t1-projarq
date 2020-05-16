@@ -130,7 +130,7 @@ export default function TeamList({ data, disableButtonTeam }) {
                     </div>
                   </button>
                 ) : (
-                  <div className="listButton">
+                  <div className="listButton2">
                     <div className="insideButton">
                       <img src={team.avatar} alt="team"></img>
                       <div>
