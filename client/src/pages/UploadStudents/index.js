@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { TiDelete } from 'react-icons/ti'
+import { FiUpload } from 'react-icons/fi'
 
 import './styles.css'
 
@@ -48,8 +49,15 @@ export default function UploadStudents() {
           className="inputButton"
           type="file"
           name="file"
+          id="file"
           onChange={(e) => handleChange(e)}
         ></input>
+        <label for="file">
+          <FiUpload size={30}/>
+          <span>
+          Escolha um arquivo
+          </span>
+        </label>
         <div className="inside">
           <ul className="listUpload">
             {students.length === 0 ? (

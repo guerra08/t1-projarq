@@ -54,10 +54,10 @@ export default function TeamList({ data, disableButtonTeam }) {
   }
 
   async function evaluateButton(id, item, number) {
-    document.getElementById(id).style.border = '3px solid #5a5a5a'
+    document.getElementById(id).style.boxShadow = "0 2px 3px 0 #000"
     item.buttons.map((button) => {
       if (id !== button.id) {
-        document.getElementById(button.id).style.border = '0px'
+        document.getElementById(button.id).style.boxShadow = "0 0 0 0 #000"
       }
     })
     switch (item.name) {

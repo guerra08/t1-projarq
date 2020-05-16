@@ -76,26 +76,31 @@ p {
 #button1, #button6, #button11, #button16, #button21 {
     background-color: #c23b23;
     color: #fff;
+    transition: filter 0.2s;
 }
 
 #button2, #button7, #button12, #button17, #button22 {
     background-color: #f39a27;
     color: #fff;
+    transition: filter 0.2s;
 }
 
 #button3, #button8, #button13, #button18, #button23 {
     background-color: #eada52;
     color: #fff;
+    transition: filter 0.2s;
 }
 
 #button4, #button9, #button14, #button19, #button24 {
     background-color: #9bc53d;
     color: #fff;
+    transition: filter 0.2s;
 }
 
 #button5, #button10, #button15, #button20, #button25 {
     background-color: #03c03c;
     color: #fff;
+    transition: filter 0.2s;
 }
 
 #button1:hover, #button2:hover, #button3:hover, #button4:hover, #button5:hover, #button6:hover, #button7:hover, #button8:hover, #button9:hover, #button10:hover, #button11:hover, #button12:hover, #button13:hover, #button14:hover, #button15:hover, #button16:hover, #button17:hover, #button18:hover, #button19:hover, #button20:hover, #button21:hover, #button22:hover, #button23:hover, #button24:hover, #button25:hover {
