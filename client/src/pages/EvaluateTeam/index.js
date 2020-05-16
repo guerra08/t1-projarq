@@ -15,6 +15,7 @@ export default function EvaluateTeam() {
           name: 'Bruno',
         },
       ],
+      score: 0,
     },
     {
       id: 2,
@@ -30,9 +31,10 @@ export default function EvaluateTeam() {
           name: 'Patricio',
         },
       ],
+      score: 0,
     },
     {
-      id: 2,
+      id: 3,
       name: 'Time dos bom',
       participants: [
         {
@@ -42,9 +44,10 @@ export default function EvaluateTeam() {
           name: 'Patricio',
         },
       ],
+      score: 0,
     },
     {
-      id: 2,
+      id: 4,
       name: 'Time dos bom',
       participants: [
         {
@@ -54,6 +57,7 @@ export default function EvaluateTeam() {
           name: 'Patricio',
         },
       ],
+      score: 0,
     },
   ]
 
@@ -67,7 +71,7 @@ export default function EvaluateTeam() {
 
   return (
     <div className="listContainer">
-      <div className="title">Selecione um time para avaliar</div>
+      <div className="titleEvaluate">Selecione um time para avaliar</div>
       <TeamList disableButtonTeam={false} data={data} />
     </div>
   )

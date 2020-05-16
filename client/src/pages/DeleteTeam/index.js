@@ -15,10 +15,11 @@ export default function DeleteTeam() {
           name: 'Bruno',
         },
       ],
+      score: 8,
     },
     {
       id: 2,
-      name: 'Time dos Meus',
+      name: 'Time dos bom',
       participants: [
         {
           name: 'Bernardo',
@@ -30,10 +31,11 @@ export default function DeleteTeam() {
           name: 'Patricio',
         },
       ],
+      score: 8,
     },
     {
-      id: 3,
-      name: 'Time dos Ruim',
+      id: 2,
+      name: 'Time dos bom',
       participants: [
         {
           name: 'Bernando',
@@ -42,10 +44,11 @@ export default function DeleteTeam() {
           name: 'Patricio',
         },
       ],
+      score: 7,
     },
     {
-      id: 4,
-      name: 'Time dos Guri',
+      id: 2,
+      name: 'Time dos bom',
       participants: [
         {
           name: 'Bernando',
@@ -54,6 +57,7 @@ export default function DeleteTeam() {
           name: 'Patricio',
         },
       ],
+      score: 10,
     },
   ]
 

@@ -25,13 +25,14 @@ export default function TeamList({ data, disableButtonTeam }) {
     return vector[Math.floor(Math.random() * 4)]
   }
 
-  async function handleButton() {
+  async function handleButton(team) {
     await setShowModal(true)
   }
 
   const handleClose = () => setShowModal(false)
 
   async function createEvaluation() {
+    // console.log(team)
     await setShowModal(false)
   }
 
@@ -83,7 +84,10 @@ export default function TeamList({ data, disableButtonTeam }) {
             {stateData.map((team) => (
               <li key={team.id}>
                 {!disableButtonTeam ? (
-                  <button onClick={() => handleButton()} className="listButton">
+                  <button
+                    onClick={() => handleButton(team)}
+                    className="listButton"
+                  >
                     <div className="insideButton">
                       {/* {console.log(team.avatar)} */}
                       {/* alterar com dados da api */}
@@ -101,6 +105,7 @@ export default function TeamList({ data, disableButtonTeam }) {
                             return ', ' + student.name
                           })}
                         </p>
+
                         <p>
                           Score atual: <strong>8</strong>
                         </p>
@@ -140,7 +145,6 @@ export default function TeamList({ data, disableButtonTeam }) {
               </li>
             ))}
           </ul>
-
           <Modal centered show={showModal} onHide={handleClose}>
             <Modal.Header closeButton>
               <Modal.Title>Avalie o Time</Modal.Title>
