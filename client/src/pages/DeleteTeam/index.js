@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react'
-import './styles.css'
+import React from 'react'
 import TeamList from '../../components/TeamList'
+import './styles.css'
 
-export default function EvaluateTeam() {
+export default function DeleteTeam() {
   const data = [
     {
       id: 1,
@@ -15,7 +15,7 @@ export default function EvaluateTeam() {
           name: 'Bruno',
         },
       ],
-      score: 0,
+      score: 8,
     },
     {
       id: 2,
@@ -31,10 +31,10 @@ export default function EvaluateTeam() {
           name: 'Patricio',
         },
       ],
-      score: 0,
+      score: 8,
     },
     {
-      id: 3,
+      id: 2,
       name: 'Time dos bom',
       participants: [
         {
@@ -44,10 +44,10 @@ export default function EvaluateTeam() {
           name: 'Patricio',
         },
       ],
-      score: 0,
+      score: 7,
     },
     {
-      id: 4,
+      id: 2,
       name: 'Time dos bom',
       participants: [
         {
@@ -57,22 +57,14 @@ export default function EvaluateTeam() {
           name: 'Patricio',
         },
       ],
-      score: 0,
+      score: 10,
     },
   ]
 
-  useEffect(() => {
-    // handleData()
-  }, [])
-  //Fazer isso com os dados da api
-  // data.map((team) => {
-  //   team['avatar'] = getRandomSvg()
-  // })
-
   return (
-    <div className="listContainer">
-      <div className="titleEvaluate">Selecione um time para avaliar</div>
-      <TeamList disableButtonTeam={false} data={data} />
+    <div className="deleteContainer">
+      <p className="title">Times Criados</p>
+      <TeamList disableButtonTeam={true} data={data} />
     </div>
   )
 }
