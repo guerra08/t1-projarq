@@ -86,6 +86,7 @@ export default function CreateTeam() {
   return (
     <div className="teamContainer">
       <div className="selectContainer">
+        <p className="title">Sugira um time para a hackatona</p>
         <input
           onChange={(e) => handleInputSelect(e)}
           className="selectInput"
