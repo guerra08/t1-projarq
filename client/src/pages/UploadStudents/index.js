@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 import { TiDelete } from 'react-icons/ti'
 import { FiUpload } from 'react-icons/fi'
+import { Alert } from 'react-bootstrap'
+import api from '../../services/api'
 
 import './styles.css'
 
@@ -9,11 +11,13 @@ import avatar1 from '../../assets/avatar1.svg'
 import avatar2 from '../../assets/avatar2.svg'
 import avatar3 from '../../assets/avatar3.svg'
 import avatar4 from '../../assets/avatar4.svg'
-import disabledSvg from '../../assets/disabled.svg'
 
 export default function UploadStudents() {
+
   const [students, setStudents] = useState([])
-  //not working
+  const [hasInserted, setHasInserted] = useState(false)
+  const [showAlert, setShowAlert] = useState(false)
+
   function handleChange(e) {
     let file = e.target.files[0]
     const reader = new FileReader()
@@ -30,7 +34,12 @@ export default function UploadStudents() {
   }
 
   async function handleButtonClick() {
-    return 'oi'
+    try{
+      await api.post('/upload/create-students', students)
+      await setHasInserted(true)
+    }catch (e) {
+      await setShowAlert(true)
+    }
   }
 
   async function handleDeleteButton(c) {
@@ -43,35 +52,34 @@ export default function UploadStudents() {
 
   return (
     <div>
-      {/* <p className="uploadTitle">Escolha um arquivo para adicionar alunos</p> */}
       <div className="updateContainer">
-        <input
-          className="inputButton"
-          type="file"
-          name="file"
-          id="file"
-          onChange={(e) => handleChange(e)}
-        ></input>
-        <label for="file">
-          <FiUpload size={30}/>
-          <span>
-          Escolha um arquivo
-          </span>
-        </label>
+        {
+          (!hasInserted) ?
+              <>
+                <input
+                    className="inputButton"
+                    type="file"
+                    name="file"
+                    id="file"
+                    onChange={(e) => handleChange(e)}
+                ></input>
+                <label htmlFor="file">
+                  <FiUpload size={30}/>
+                  <span>
+                    Escolha um arquivo
+                  </span>
+                </label>
+              </>
+            : <></>
+        }
         <div className="inside">
           <ul className="listUpload">
             {students.length === 0 ? (
-              // <div className="disabled">
-              //   <img src={disabledSvg} alt="disabled"></img>
-              //   <p>Nenhum aluno foi adicionado!</p>
-              // </div>
               <></>
             ) : (
               students.map((student) => (
                 <li className="l">
                   <div key={student.id} className="insideButton">
-                    {/* {console.log(team.avatar)} */}
-                    {/* alterar com dados da api */}
                     <img src={getRandomSvg()} alt="team"></img>
                     <div>
                       <p>
@@ -94,11 +102,17 @@ export default function UploadStudents() {
           </ul>
           {students.length === 0 ? (
             <></>
+          ) : (hasInserted) ? (
+              <Alert variant="success">Alunos cadastrados!</Alert>
           ) : (
+          (showAlert) ? (
+              <Alert variant="danger" onClose={() => setShowAlert(false)} dismissible={true}>Erro ao cadastrar alunos!</Alert>
+          ) :
+          (
             <button onClick={() => handleButtonClick()} className="button">
               Adicionar
             </button>
-          )}
+          ))}
         </div>
       </div>
     </div>

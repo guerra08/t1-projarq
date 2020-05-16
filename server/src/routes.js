@@ -1,5 +1,6 @@
 const express = require('express')
 const { celebrate, Joi, errors, Segments } = require('celebrate');
+const AdminController = require('./controllers/AdminController')
 const StudentController = require('./controllers/StudentController')
 const TeamController = require('./controllers/TeamController')
 const CourseController = require('./controllers/CourseController')
@@ -9,6 +10,9 @@ const router = express.Router()
 router.get('/', (req, res) => {
     res.send('Hello, world!')
 })
+
+//Admin routes
+router.post('/upload/create-students', AdminController.addStudentsFromFile)
 
 //Student routes
 router.get('/students', StudentController.index)
