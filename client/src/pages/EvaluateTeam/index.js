@@ -1,6 +1,7 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import './styles.css'
 import { Modal, Button } from 'react-bootstrap'
+import api from '../../services/api'
 
 import disabledTeam from '../../assets/disabledTeam.svg'
 import team0 from '../../assets/team1.svg'
@@ -11,60 +12,15 @@ import evaluate from '../../utils/evaluate'
 
 export default function EvaluateTeam() {
   const [showModal, setShowModal] = useState(false)
+  const [teams, setTeams] = useState([])
 
-  const data = [
-    {
-      id: 1,
-      name: 'Time dos bom',
-      participants: [
-        {
-          name: 'Joao',
-        },
-        {
-          name: 'Bruno',
-        },
-      ],
-    },
-    {
-      id: 2,
-      name: 'Time dos bom',
-      participants: [
-        {
-          name: 'Bernardo',
-        },
-        {
-          name: 'Patricio',
-        },
-        {
-          name: 'Patricio',
-        },
-      ],
-    },
-    {
-      id: 2,
-      name: 'Time dos bom',
-      participants: [
-        {
-          name: 'Bernando',
-        },
-        {
-          name: 'Patricio',
-        },
-      ],
-    },
-    {
-      id: 2,
-      name: 'Time dos bom',
-      participants: [
-        {
-          name: 'Bernando',
-        },
-        {
-          name: 'Patricio',
-        },
-      ],
-    },
-  ]
+  useEffect(() => {
+    getTeams()
+  }, [])
+
+  async function getTeams(){
+    await setTeams((await api.get('/valid-teams')).data)
+  }
 
   function getRandomSvg() {
     let vector = [team0, team1, team2, team3]
@@ -90,72 +46,80 @@ export default function EvaluateTeam() {
     })
   }
 
-  return (
-    <div className="listContainer">
-      <div className="title">Selecione um time para avaliar</div>
-      <div>
-        <ul className="list">
-          {data.map((team) => (
-            <li key={team.id}>
-              <button onClick={() => handleButton()} className="listButton">
-                <div className="insideButton">
-                  <img src={getRandomSvg()} alt="team"></img>
-                  <div>
-                    <p>
-                      <strong>{team.name}</strong>
-                    </p>
-                    <p>
-                      Participantes:
-                      {team.participants.map((student) => {
-                        if (team.participants[0] === student) {
-                          return ' ' + student.name
-                        }
-                        return ', ' + student.name
-                      })}
-                    </p>
-                    <p>
-                      Score atual: <strong>8</strong>
-                    </p>
-                  </div>
-                </div>
-              </button>
-            </li>
-          ))}
-        </ul>
-
-        <Modal centered show={showModal} onHide={handleClose}>
-          <Modal.Header closeButton>
-            <Modal.Title>Avalie o Time</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            <div className="ranking">
-              {evaluate.map((item) => (
-                <div>
-                  <p>{item.name}</p>
-                  <div className="item">
-                    {item.buttons.map((button) => (
-                      <button
-                        onClick={() => evaluateButton(button.id, item)}
-                        id={button.id}
-                      >
-                        {button.number}
-                      </button>
-                    ))}
-                  </div>
-                </div>
+  if(teams.length > 0){
+    return (
+        <div className="listContainer">
+          <div className="title">Selecione um time para avaliar</div>
+          <div>
+            <ul className="list">
+              {teams.map((team) => (
+                  <li key={team.id}>
+                    <button onClick={() => handleButton()} className="listButton">
+                      <div className="insideButton">
+                        <img src={getRandomSvg()} alt="team"></img>
+                        <div>
+                          <p>
+                            <strong>{team.name}</strong>
+                          </p>
+                          <p>
+                            Participantes:
+                            {team.participants.map((student) => {
+                              if (team.participants[0] === student) {
+                                return ' ' + student.name
+                              }
+                              return ', ' + student.name
+                            })}
+                          </p>
+                          <p>
+                            Score atual: <strong>8</strong>
+                          </p>
+                        </div>
+                      </div>
+                    </button>
+                  </li>
               ))}
-            </div>
-          </Modal.Body>
-          <Modal.Footer>
-            <Button variant="secondary" onClick={handleClose}>
-              Close
-            </Button>
-            <Button variant="primary" onClick={() => createEvaluation()}>
-              Save Changes
-            </Button>
-          </Modal.Footer>
-        </Modal>
+            </ul>
+
+            <Modal centered show={showModal} onHide={handleClose}>
+              <Modal.Header closeButton>
+                <Modal.Title>Avalie o Time</Modal.Title>
+              </Modal.Header>
+              <Modal.Body>
+                <div className="ranking">
+                  {evaluate.map((item) => (
+                      <div>
+                        <p>{item.name}</p>
+                        <div className="item">
+                          {item.buttons.map((button) => (
+                              <button
+                                  onClick={() => evaluateButton(button.id, item)}
+                                  id={button.id}
+                              >
+                                {button.number}
+                              </button>
+                          ))}
+                        </div>
+                      </div>
+                  ))}
+                </div>
+              </Modal.Body>
+              <Modal.Footer>
+                <Button variant="secondary" onClick={handleClose}>
+                  Close
+                </Button>
+                <Button variant="primary" onClick={() => createEvaluation()}>
+                  Save Changes
+                </Button>
+              </Modal.Footer>
+            </Modal>
+          </div>
+        </div>
+    )
+  }
+
+  return (
+      <div>
+        <p>Placeholder</p>
       </div>
-    </div>
   )
 }
