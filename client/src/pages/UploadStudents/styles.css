@@ -4,3 +4,29 @@
     justify-content: center;
     height: 100vh;
 }
+
+.listUpload {
+    overflow-y: auto;
+    height: 50rem;
+}
+
+.item {
+	padding: 32px;
+}
+
+
+.l {
+    padding: 32px;
+}
+
+.inputButton {
+    font: 400 18px Roboto, sans-serif;
+
+
+}
+
+.inputButton:hover {
+    filter: brightness(90%);
+}
+
+

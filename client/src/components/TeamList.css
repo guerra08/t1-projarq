@@ -22,6 +22,10 @@
     width: 800px;
 }
 
+/* .insideButton div:hover, .insideButton:hover {
+    filter: brightness(90%);
+} */
+
 .insideButton div {
     display: flex;
     align-items: flex-start;
@@ -92,6 +96,10 @@ p {
 #button5, #button10, #button15, #button20, #button25 {
     background-color: #03c03c;
     color: #fff;
+}
+
+#button1:hover, #button2:hover, #button3:hover, #button4:hover, #button5:hover, #button6:hover, #button7:hover, #button8:hover, #button9:hover, #button10:hover, #button11:hover, #button12:hover, #button13:hover, #button14:hover, #button15:hover, #button16:hover, #button17:hover, #button18:hover, #button19:hover, #button20:hover, #button21:hover, #button22:hover, #button23:hover, #button24:hover, #button25:hover {
+    filter: brightness(90%);
 }
 
 .disabledTeam {
