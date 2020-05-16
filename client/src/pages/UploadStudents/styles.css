@@ -2,12 +2,18 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    /* flex-direction: column; */
     height: 100vh;
 }
 
 .listUpload {
     overflow-y: auto;
     height: 50rem;
+}
+
+.uploadTitle {
+    font-size: 2rem;
+    font-weight: bold;
 }
 
 .item {
@@ -29,4 +35,18 @@
     filter: brightness(90%);
 }
 
+.inside {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.disabled {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    /* margin-top: 100%; */
+}
 

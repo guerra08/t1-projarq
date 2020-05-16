@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { TiDelete } from 'react-icons/ti'
 
 import './styles.css'
 
@@ -16,8 +17,8 @@ export default function UploadStudents() {
     let file = e.target.files[0]
     const reader = new FileReader()
     reader.onload = async function () {
-      // console.log(JSON.parse(reader.result)[0])
-      await setStudents([JSON.parse(reader.result).data])
+      console.log(JSON.parse(reader.result))
+      await setStudents(JSON.parse(reader.result))
     }
     reader.readAsText(file)
   }
@@ -27,9 +28,21 @@ export default function UploadStudents() {
     return vector[Math.floor(Math.random() * 4)]
   }
 
+  async function handleButtonClick() {
+    return 'oi'
+  }
+
+  async function handleDeleteButton(c) {
+    await setStudents(
+      students.filter((student) => {
+        return student.code !== c
+      })
+    )
+  }
+
   return (
     <div>
-      <p>Escolha um arquivo</p>
+      {/* <p className="uploadTitle">Escolha um arquivo para adicionar alunos</p> */}
       <div className="updateContainer">
         <input
           className="inputButton"
@@ -37,27 +50,48 @@ export default function UploadStudents() {
           name="file"
           onChange={(e) => handleChange(e)}
         ></input>
-        <ul className="listUpload">
-          {students.length === 0 ? (
-            <> </>
-          ) : (
-            students[0].map((student) => (
-              <li className="l" key={student.id}>
-                <div className="insideButton">
-                  {/* {console.log(team.avatar)} */}
-                  {/* alterar com dados da api */}
-                  <img src={getRandomSvg()} alt="team"></img>
-                  <div>
-                    <p>
-                      <strong>{student.name}</strong>
-                    </p>
-                    <p>{student.course_name}</p>
+        <div className="inside">
+          <ul className="listUpload">
+            {students.length === 0 ? (
+              // <div className="disabled">
+              //   <img src={disabledSvg} alt="disabled"></img>
+              //   <p>Nenhum aluno foi adicionado!</p>
+              // </div>
+              <></>
+            ) : (
+              students.map((student) => (
+                <li className="l">
+                  <div key={student.id} className="insideButton">
+                    {/* {console.log(team.avatar)} */}
+                    {/* alterar com dados da api */}
+                    <img src={getRandomSvg()} alt="team"></img>
+                    <div>
+                      <p>
+                        <strong>{student.name}</strong>
+                      </p>
+                      <p>Matrícula: {student.code}</p>
+                      <p>Telefone: {student.phone}</p>
+                      <p>Email: {student.email}</p>
+                    </div>
+                    <button
+                      className="removeTeam"
+                      onClick={() => handleDeleteButton(student.code)}
+                    >
+                      <TiDelete size={50} color="#FF3B30" />
+                    </button>
                   </div>
-                </div>
-              </li>
-            ))
+                </li>
+              ))
+            )}
+          </ul>
+          {students.length === 0 ? (
+            <></>
+          ) : (
+            <button onClick={() => handleButtonClick()} className="button">
+              Adicionar
+            </button>
           )}
-        </ul>
+        </div>
       </div>
     </div>
   )

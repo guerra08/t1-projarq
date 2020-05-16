@@ -1,54 +1,44 @@
-{
-    "data" : [
+
+     [
 
         { 
-            "id": 1, 
             "name":"Bruno Guerra", 
             "code":"123456789",
             "email": "gguerrabruno@outlook.com",
             "phone": "998877665544",
-            "course": 1,
-            "course_name": "Engenharia de Software"
+            "course": 1
         },
         { 
-            "id": 1, 
-            "name":"Bruno Guerra", 
-            "code":"123456789",
+            "name":"Eduardo Lessa", 
+            "code":"321321",
             "email": "gguerrabruno@outlook.com",
             "phone": "998877665544",
-            "course": 1,
-            "course_name": "Engenharia de Software"
+            "course": 1
         },
         { 
-            "id": 1, 
-            "name":"Bruno Guerra", 
-            "code":"123456789",
+            "name":"Guilherme Rizzotto", 
+            "code":"432432",
             "email": "gguerrabruno@outlook.com",
             "phone": "998877665544",
-            "course": 1,
-            "course_name": "Engenharia de Software"
+            "course": 1
         },
         { 
-            "id": 1, 
-            "name":"Bruno Guerra", 
-            "code":"123456789",
+            "name":"João Leão", 
+            "code":"543534",
             "email": "gguerrabruno@outlook.com",
             "phone": "998877665544",
-            "course": 1,
-            "course_name": "Engenharia de Software"
+            "course": 1
         },
         { 
-            "id": 1, 
-            "name":"Bruno Guerra", 
-            "code":"123456789",
+            "name":"Pedro Portella", 
+            "code":"564564",
             "email": "gguerrabruno@outlook.com",
             "phone": "998877665544",
-            "course": 1,
-            "course_name": "Engenharia de Software"
+            "course": 1
         }
     ]
-     
-}
+ 
+
 
 
 
