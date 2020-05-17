@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react'
-import './TeamList.css'
+import './styles.css'
 import { Modal, Button } from 'react-bootstrap'
 import { TiDelete } from 'react-icons/ti'
-import api from '../services/api'
-import disabledTeam from '../assets/disabledTeam.svg'
-import evaluate from '../utils/evaluate'
+import api from '../../services/api'
+import disabledTeam from '../../assets/disabledTeam.svg'
+import evaluate from '../../utils/evaluate'
 
 export default function TeamList({ data, disableButtonTeam }) {
   const [showModal, setShowModal] = useState(false)
@@ -31,7 +31,7 @@ export default function TeamList({ data, disableButtonTeam }) {
     setShowModal(false)
   }
 
-  async function cleanValues(){
+  async function cleanValues() {
     await setWorkingSoftware(0)
     await setProcess(0)
     await setPitch(0)
@@ -47,17 +47,17 @@ export default function TeamList({ data, disableButtonTeam }) {
       process,
       pitch,
       innovation,
-      team_formation: teamFormation
+      team_formation: teamFormation,
     })
     console.log(res)
     await setShowModal(false)
   }
 
   async function evaluateButton(id, item, number) {
-    document.getElementById(id).style.boxShadow = "0 2px 3px 0 #000"
+    document.getElementById(id).style.boxShadow = '0 2px 3px 0 #000'
     item.buttons.map((button) => {
       if (id !== button.id) {
-        document.getElementById(button.id).style.boxShadow = "0 0 0 0 #000"
+        document.getElementById(button.id).style.boxShadow = '0 0 0 0 #000'
       }
     })
     switch (item.name) {

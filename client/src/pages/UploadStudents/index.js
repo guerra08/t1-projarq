@@ -1,17 +1,13 @@
 import React, { useState } from 'react'
 import { TiDelete } from 'react-icons/ti'
 import { FiUpload } from 'react-icons/fi'
-import { GrUserAdmin } from 'react-icons/gr'
-import { Alert, Navbar } from 'react-bootstrap'
-import { Link } from 'react-router-dom'
+import { Alert } from 'react-bootstrap'
+import NavBar from '../../components/NavBar'
+
 import api from '../../services/api'
 import './styles.css'
 
-import avatar0 from '../../assets/avatar0.svg'
-import avatar1 from '../../assets/avatar1.svg'
-import avatar2 from '../../assets/avatar2.svg'
-import avatar3 from '../../assets/avatar3.svg'
-import avatar4 from '../../assets/avatar4.svg'
+import getRandomSvg from '../../utils/getRandomSvg'
 
 export default function UploadStudents() {
   const [students, setStudents] = useState([])
@@ -26,11 +22,6 @@ export default function UploadStudents() {
       await setStudents(JSON.parse(reader.result))
     }
     reader.readAsText(file)
-  }
-
-  function getRandomSvg() {
-    let vector = [avatar0, avatar1, avatar2, avatar3, avatar4]
-    return vector[Math.floor(Math.random() * 4)]
   }
 
   async function handleButtonClick() {
@@ -52,12 +43,7 @@ export default function UploadStudents() {
 
   return (
     <div>
-      <Navbar fixed="top" expand="lg" variant="light">
-        <GrUserAdmin size={30} className="icon" />
-        <Link className="link" to="/delete">
-          Delete
-        </Link>
-      </Navbar>
+      <NavBar path="delete" name="Deletar Times" />
       <div className="updateContainer">
         {!hasInserted ? (
           <>
@@ -84,7 +70,7 @@ export default function UploadStudents() {
               students.map((student) => (
                 <li className="l">
                   <div key={student.id} className="insideButton">
-                    <img src={getRandomSvg()} alt="team"></img>
+                    <img src={getRandomSvg('avatar')} alt="team"></img>
                     <div>
                       <p>
                         <strong>{student.name}</strong>

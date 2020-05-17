@@ -1,15 +1,9 @@
 import React from 'react'
-import { Navbar } from 'react-bootstrap'
-import { GrUserAdmin } from 'react-icons/gr'
-
+import NavBar from '../../components/NavBar'
 import TeamList from '../../components/TeamList'
-import team0 from '../../assets/team1.svg'
-import team1 from '../../assets/team2.svg'
-import team2 from '../../assets/team3.svg'
-import team3 from '../../assets/team4.svg'
+import getRandomSvg from '../../utils/getRandomSvg'
 
 import './styles.css'
-import { Link } from 'react-router-dom'
 
 export default function DeleteTeam() {
   const data = [
@@ -71,23 +65,12 @@ export default function DeleteTeam() {
   ]
 
   data.map((team) => {
-    team['avatar'] = getRandomSvg()
+    team['avatar'] = getRandomSvg('team')
   })
-
-  function getRandomSvg() {
-    let vector = [team0, team1, team2, team3]
-    return vector[Math.floor(Math.random() * 4)]
-  }
 
   return (
     <div>
-      <Navbar fixed="top" expand="lg" variant="light">
-        <GrUserAdmin size={30} className="icon" />
-        <Link className="link" to="/upload">
-          Upload
-        </Link>
-      </Navbar>
-      {/* </Container> */}
+      <NavBar path="upload" name="Cadastrar Alunos" />
       <div className="deleteContainer">
         <p className="titleDelete">Times Criados</p>
         <TeamList disableButtonTeam={true} data={data} />

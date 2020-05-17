@@ -6,9 +6,11 @@
     flex-direction: column;
 }
 
-.title {
-    font-size: 1.2rem;
+.titleCreate {
+    font-size: 1.8rem;
     margin-bottom: 6%;
+    font-weight: bold;
+    color: #767676
 }
 
 .users {

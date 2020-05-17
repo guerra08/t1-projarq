@@ -6,12 +6,8 @@ import Select from 'react-select'
 import { Alert } from 'react-bootstrap'
 import { TiDelete } from 'react-icons/ti'
 
-import avatar0 from '../../assets/avatar0.svg'
-import avatar1 from '../../assets/avatar1.svg'
-import avatar2 from '../../assets/avatar2.svg'
-import avatar3 from '../../assets/avatar3.svg'
-import avatar4 from '../../assets/avatar4.svg'
 import disabledSvg from '../../assets/disabled.svg'
+import getRandomSvg from '../../utils/getRandomSvg'
 
 export default function CreateTeam() {
   const [selectedUsers, setSelectedUsers] = useState([])
@@ -28,7 +24,7 @@ export default function CreateTeam() {
     api.get('/students').then((response) => {
       data = response.data
       data.map((user) => {
-        user['avatar'] = getRandomSvg()
+        user['avatar'] = getRandomSvg('avatar')
         users.push({ value: user, label: user.name })
       })
     })
@@ -70,11 +66,6 @@ export default function CreateTeam() {
     return bool
   }
 
-  function getRandomSvg() {
-    let vector = [avatar0, avatar1, avatar2, avatar3, avatar4]
-    return vector[Math.floor(Math.random() * 5)]
-  }
-
   async function handleClick(userId) {
     await setSelectedUsers(selectedUsers.filter((user) => user.id !== userId))
   }
@@ -86,7 +77,7 @@ export default function CreateTeam() {
   return (
     <div className="teamContainer">
       <div className="selectContainer">
-        <p className="title">Sugira um time para a hackatona</p>
+        <p className="titleCreate">Sugira um time para a hackatona</p>
         <input
           onChange={(e) => handleInputSelect(e)}
           className="selectInput"
