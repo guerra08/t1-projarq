@@ -1,9 +1,10 @@
 import React, { useState } from 'react'
 import { TiDelete } from 'react-icons/ti'
 import { FiUpload } from 'react-icons/fi'
-import { Alert } from 'react-bootstrap'
+import { GrUserAdmin } from 'react-icons/gr'
+import { Alert, Navbar } from 'react-bootstrap'
+import { Link } from 'react-router-dom'
 import api from '../../services/api'
-
 import './styles.css'
 
 import avatar0 from '../../assets/avatar0.svg'
@@ -13,7 +14,6 @@ import avatar3 from '../../assets/avatar3.svg'
 import avatar4 from '../../assets/avatar4.svg'
 
 export default function UploadStudents() {
-
   const [students, setStudents] = useState([])
   const [hasInserted, setHasInserted] = useState(false)
   const [showAlert, setShowAlert] = useState(false)
@@ -34,10 +34,10 @@ export default function UploadStudents() {
   }
 
   async function handleButtonClick() {
-    try{
+    try {
       await api.post('/upload/create-students', students)
       await setHasInserted(true)
-    }catch (e) {
+    } catch (e) {
       await setShowAlert(true)
     }
   }
@@ -52,26 +52,30 @@ export default function UploadStudents() {
 
   return (
     <div>
+      <Navbar fixed="top" expand="lg" variant="light">
+        <GrUserAdmin size={30} className="icon" />
+        <Link className="link" to="/delete">
+          Delete
+        </Link>
+      </Navbar>
       <div className="updateContainer">
-        {
-          (!hasInserted) ?
-              <>
-                <input
-                    className="inputButton"
-                    type="file"
-                    name="file"
-                    id="file"
-                    onChange={(e) => handleChange(e)}
-                ></input>
-                <label htmlFor="file">
-                  <FiUpload size={30}/>
-                  <span>
-                    Escolha um arquivo
-                  </span>
-                </label>
-              </>
-            : <></>
-        }
+        {!hasInserted ? (
+          <>
+            <input
+              className="inputButton"
+              type="file"
+              name="file"
+              id="file"
+              onChange={(e) => handleChange(e)}
+            ></input>
+            <label htmlFor="file">
+              <FiUpload size={30} />
+              <span>Escolha um arquivo</span>
+            </label>
+          </>
+        ) : (
+          <></>
+        )}
         <div className="inside">
           <ul className="listUpload">
             {students.length === 0 ? (
@@ -102,17 +106,21 @@ export default function UploadStudents() {
           </ul>
           {students.length === 0 ? (
             <></>
-          ) : (hasInserted) ? (
-              <Alert variant="success">Alunos cadastrados!</Alert>
+          ) : hasInserted ? (
+            <Alert variant="success">Alunos cadastrados!</Alert>
+          ) : showAlert ? (
+            <Alert
+              variant="danger"
+              onClose={() => setShowAlert(false)}
+              dismissible={true}
+            >
+              Erro ao cadastrar alunos!
+            </Alert>
           ) : (
-          (showAlert) ? (
-              <Alert variant="danger" onClose={() => setShowAlert(false)} dismissible={true}>Erro ao cadastrar alunos!</Alert>
-          ) :
-          (
             <button onClick={() => handleButtonClick()} className="button">
               Adicionar
             </button>
-          ))}
+          )}
         </div>
       </div>
     </div>

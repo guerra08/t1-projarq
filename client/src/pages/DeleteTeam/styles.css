@@ -24,3 +24,21 @@
 	cursor: pointer;
 	outline: inherit;
 }
+
+.link {
+    color: #5a5a5a;
+    font-size: 1.6rem;
+    text-decoration: none!important;
+    transition: filter 0.2s;
+    margin-left: 1%;
+}
+
+.link:hover {
+    filter: brightness(90%);
+    cursor: pointer;
+    color: #373737;
+}
+
+.icon {
+    color: #5a5a5a;
+}

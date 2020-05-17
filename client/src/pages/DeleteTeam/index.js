@@ -1,4 +1,7 @@
 import React from 'react'
+import { Navbar } from 'react-bootstrap'
+import { GrUserAdmin } from 'react-icons/gr'
+
 import TeamList from '../../components/TeamList'
 import team0 from '../../assets/team1.svg'
 import team1 from '../../assets/team2.svg'
@@ -6,6 +9,7 @@ import team2 from '../../assets/team3.svg'
 import team3 from '../../assets/team4.svg'
 
 import './styles.css'
+import { Link } from 'react-router-dom'
 
 export default function DeleteTeam() {
   const data = [
@@ -76,9 +80,18 @@ export default function DeleteTeam() {
   }
 
   return (
-    <div className="deleteContainer">
-      <p className="titleDelete">Times Criados</p>
-      <TeamList disableButtonTeam={true} data={data} />
+    <div>
+      <Navbar fixed="top" expand="lg" variant="light">
+        <GrUserAdmin size={30} className="icon" />
+        <Link className="link" to="/upload">
+          Upload
+        </Link>
+      </Navbar>
+      {/* </Container> */}
+      <div className="deleteContainer">
+        <p className="titleDelete">Times Criados</p>
+        <TeamList disableButtonTeam={true} data={data} />
+      </div>
     </div>
   )
 }
