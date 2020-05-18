@@ -2,6 +2,7 @@ import React from 'react'
 import { Navbar } from 'react-bootstrap'
 import { GrUserAdmin } from 'react-icons/gr'
 import { Link } from 'react-router-dom'
+import Logout from '../Logout'
 import './styles.css'
 
 export default function ({ path, name }) {
@@ -11,6 +12,7 @@ export default function ({ path, name }) {
       <Link className="link" to={`/${path}`}>
         {name}
       </Link>
+      <Logout></Logout>
     </Navbar>
   )
 }
