@@ -3,6 +3,7 @@ import { Link, useHistory } from 'react-router-dom'
 import { FiLogIn } from 'react-icons/fi'
 
 import api from '../../services/api'
+import {updateLocalStorage} from '../../utils/access'
 
 import './styles.css'
 
@@ -14,18 +15,24 @@ export default function Login() {
   async function handleLogin(e) {
     e.preventDefault()
     try {
-      const res = await api.post(`/${userType}/login`, { code })
-      localStorage.setItem('userId', `${res.data.id}`)
-      localStorage.setItem('userType', `${userType}`)
-      localStorage.setItem('name', `${res.data.name}`)
-      if(userType === 'students'){
-        history.push('/create')
+      if(userType ===  'admins'){
+        if(code ===  '12345'){
+          updateLocalStorage({userType: 'admins', userId: '666', name: 'Admin'})
+          history.push('/upload')
+        }
+        else{
+          alert('Falha no logon, tente novamente!')
+        }
       }
-      else if(userType === 'professors'){
-        history.push('/evaluate')
-      }
-      else if(userType === 'admin'){
-        //Admin routes
+      else{
+        const res = await api.post(`/${userType}/login`, { code })
+        updateLocalStorage({userType: userType, id: res.data.id, name: res.data.name})
+        if(userType === 'students'){
+          history.push('/create')
+        }
+        else if(userType === 'professors'){
+          history.push('/evaluate')
+        }
       }
     } catch (error) {
       console.log(error)

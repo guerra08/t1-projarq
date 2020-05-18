@@ -5,6 +5,7 @@ import { Alert } from 'react-bootstrap'
 import NavBar from '../../components/NavBar'
 
 import api from '../../services/api'
+import {checkAccess} from '../../utils/access'
 import './styles.css'
 
 import getRandomSvg from '../../utils/getRandomSvg'
@@ -41,74 +42,81 @@ export default function UploadStudents() {
     )
   }
 
-  return (
-    <div>
-      <NavBar path="delete" name="Deletar Times" />
-      <div className="updateContainer">
-        {!hasInserted ? (
-          <>
-            <input
-              className="inputButton"
-              type="file"
-              name="file"
-              id="file"
-              onChange={(e) => handleChange(e)}
-            ></input>
-            <label htmlFor="file">
-              <FiUpload size={30} />
-              <span>Escolha um arquivo</span>
-            </label>
-          </>
-        ) : (
-          <></>
-        )}
-        <div className="inside">
-          <ul className="listUpload">
+  if(checkAccess("admins")){
+    return (
+      <div>
+        <NavBar path="delete" name="Deletar Times" />
+        <div className="updateContainer">
+          {!hasInserted ? (
+            <>
+              <input
+                className="inputButton"
+                type="file"
+                name="file"
+                id="file"
+                onChange={(e) => handleChange(e)}
+              ></input>
+              <label htmlFor="file">
+                <FiUpload size={30} />
+                <span>Escolha um arquivo</span>
+              </label>
+            </>
+          ) : (
+            <></>
+          )}
+          <div className="inside">
+            <ul className="listUpload">
+              {students.length === 0 ? (
+                <></>
+              ) : (
+                students.map((student) => (
+                  <li className="l">
+                    <div key={student.id} className="insideButton">
+                      <img src={getRandomSvg('avatar')} alt="team"></img>
+                      <div>
+                        <p>
+                          <strong>{student.name}</strong>
+                        </p>
+                        <p>Matrícula: {student.code}</p>
+                        <p>Telefone: {student.phone}</p>
+                        <p>Email: {student.email}</p>
+                      </div>
+                      <button
+                        className="removeTeam"
+                        onClick={() => handleDeleteButton(student.code)}
+                      >
+                        <TiDelete size={50} color="#FF3B30" />
+                      </button>
+                    </div>
+                  </li>
+                ))
+              )}
+            </ul>
             {students.length === 0 ? (
               <></>
+            ) : hasInserted ? (
+              <Alert variant="success">Alunos cadastrados!</Alert>
+            ) : showAlert ? (
+              <Alert
+                variant="danger"
+                onClose={() => setShowAlert(false)}
+                dismissible={true}
+              >
+                Erro ao cadastrar alunos!
+              </Alert>
             ) : (
-              students.map((student) => (
-                <li className="l">
-                  <div key={student.id} className="insideButton">
-                    <img src={getRandomSvg('avatar')} alt="team"></img>
-                    <div>
-                      <p>
-                        <strong>{student.name}</strong>
-                      </p>
-                      <p>Matrícula: {student.code}</p>
-                      <p>Telefone: {student.phone}</p>
-                      <p>Email: {student.email}</p>
-                    </div>
-                    <button
-                      className="removeTeam"
-                      onClick={() => handleDeleteButton(student.code)}
-                    >
-                      <TiDelete size={50} color="#FF3B30" />
-                    </button>
-                  </div>
-                </li>
-              ))
+              <button onClick={() => handleButtonClick()} className="button">
+                Adicionar
+              </button>
             )}
-          </ul>
-          {students.length === 0 ? (
-            <></>
-          ) : hasInserted ? (
-            <Alert variant="success">Alunos cadastrados!</Alert>
-          ) : showAlert ? (
-            <Alert
-              variant="danger"
-              onClose={() => setShowAlert(false)}
-              dismissible={true}
-            >
-              Erro ao cadastrar alunos!
-            </Alert>
-          ) : (
-            <button onClick={() => handleButtonClick()} className="button">
-              Adicionar
-            </button>
-          )}
+          </div>
         </div>
       </div>
+    )
+  }
+  return(
+    <div>
+      <p>Acesso negado!</p>
     </div>
   )
 }

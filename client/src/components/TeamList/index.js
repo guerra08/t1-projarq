@@ -6,7 +6,7 @@ import api from '../../services/api'
 import disabledTeam from '../../assets/disabledTeam.svg'
 import evaluate from '../../utils/evaluate'
 
-export default function TeamList({ data, disableButtonTeam }) {
+export default function TeamList({ data, disableButtonTeam, deleteRemovesFromDatabase }) {
   const [showModal, setShowModal] = useState(false)
   const [teamId, setTeamId] = useState(-1)
   const [stateData, setStateData] = useState([])
@@ -80,9 +80,11 @@ export default function TeamList({ data, disableButtonTeam }) {
   }
 
   function handleClick(id) {
+    if(deleteRemovesFromDatabase){
+      //API delete team
+    }
     setStateData(
       stateData.filter((team) => {
-        // console.log(team)
         return team.id !== id
       })
     )

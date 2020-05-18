@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
+import {checkAccess} from '../../utils/access'
 import api from '../../services/api'
-// import User from '../../components/User'
 import './styles.css'
 import Select from 'react-select'
 import { Alert } from 'react-bootstrap'
@@ -73,71 +73,78 @@ export default function CreateTeam() {
   async function handleInputSelect(e) {
     await setTeamName(e.target.value)
   }
-
+  
+  if(checkAccess("students")){
+    return (
+      <div className="teamContainer">
+        <div className="selectContainer">
+          <p className="titleCreate">Sugira um time para a hackatona</p>
+          <input
+            onChange={(e) => handleInputSelect(e)}
+            className="selectInput"
+            placeholder="Nome do Time"
+          ></input>
+          <div className="select">
+            {selectedUsers.length > 4 ? (
+              <Alert variant="danger">Equipe Cheia!</Alert>
+            ) : (
+              <Select
+                onChange={(selected) => handleChange(selected)}
+                options={handleData()}
+                placeholder="Selecione um Aluno"
+              />
+            )}
+          </div>
+        </div>
+        {selectedUsers.length === 0 ? (
+          <div className="disabledSvg">
+            <img src={disabledSvg} alt="disabled"></img>
+            <p>Você não sugeriu um time ainda!</p>
+          </div>
+        ) : (
+          <div className="users">
+            {selectedUsers.map((user) => (
+              <div key={user.id} className="userContainer">
+                <div className="user">
+                  <button
+                    className="removeUser"
+                    onClick={() => handleClick(user.id)}
+                  >
+                    <TiDelete size={48} color="#FF3B30" />
+                  </button>
+                  <img alt="img" src={user.avatar}></img>
+                  <p>{user.name}</p>
+                  <p>{user.course_name}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+  
+        {hasInserted ? (
+          <button className="createdTeam" disabled="true">
+            Time Criado
+          </button>
+        ) : changeButton() ? (
+          <button className="button" onClick={() => createTeamAndAddStudents()}>
+            Criar Time
+          </button>
+        ) : (
+          <div>
+            <p className="disabled">
+              Pelo menos 2 participantes de cursos distintos
+            </p>
+            <button className="unavailable" disabled="true">
+              Indisponível
+            </button>
+          </div>
+        )}
+      </div>
+    )
+  }
   return (
     <div className="teamContainer">
-      <div className="selectContainer">
-        <p className="titleCreate">Sugira um time para a hackatona</p>
-        <input
-          onChange={(e) => handleInputSelect(e)}
-          className="selectInput"
-          placeholder="Nome do Time"
-        ></input>
-        <div className="select">
-          {selectedUsers.length > 4 ? (
-            <Alert variant="danger">Equipe Cheia!</Alert>
-          ) : (
-            <Select
-              onChange={(selected) => handleChange(selected)}
-              options={handleData()}
-              placeholder="Selecione um Aluno"
-            />
-          )}
-        </div>
-      </div>
-      {selectedUsers.length === 0 ? (
-        <div className="disabledSvg">
-          <img src={disabledSvg} alt="disabled"></img>
-          <p>Você não sugeriu um time ainda!</p>
-        </div>
-      ) : (
-        <div className="users">
-          {selectedUsers.map((user) => (
-            <div key={user.id} className="userContainer">
-              <div className="user">
-                <button
-                  className="removeUser"
-                  onClick={() => handleClick(user.id)}
-                >
-                  <TiDelete size={48} color="#FF3B30" />
-                </button>
-                <img alt="img" src={user.avatar}></img>
-                <p>{user.name}</p>
-                <p>{user.course_name}</p>
-              </div>
-            </div>
-          ))}
-        </div>
-      )}
-
-      {hasInserted ? (
-        <button className="createdTeam" disabled="true">
-          Time Criado
-        </button>
-      ) : changeButton() ? (
-        <button className="button" onClick={() => createTeamAndAddStudents()}>
-          Criar Time
-        </button>
-      ) : (
-        <div>
-          <p className="disabled">
-            Pelo menos 2 participantes de cursos distintos
-          </p>
-          <button className="unavailable" disabled="true">
-            Indisponível
-          </button>
-        </div>
-      )}
+      <p>Acesso negado!</p>
     </div>
   )
 }
