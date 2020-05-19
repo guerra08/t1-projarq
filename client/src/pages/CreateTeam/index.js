@@ -6,6 +6,7 @@ import './styles.css'
 import Select from 'react-select'
 import { Alert } from 'react-bootstrap'
 import { TiDelete } from 'react-icons/ti'
+import AccessDenied from '../../components/AccessDenied'
 
 import disabledSvg from '../../assets/disabled.svg'
 import getRandomSvg from '../../utils/getRandomSvg'
@@ -74,8 +75,8 @@ export default function CreateTeam() {
   async function handleInputSelect(e) {
     await setTeamName(e.target.value)
   }
-  
-  if(checkAccess("students")){
+
+  if (checkAccess('students')) {
     return (
       <>
         <NavBar type={localStorage.getItem('userType')}></NavBar>
@@ -146,9 +147,5 @@ export default function CreateTeam() {
       </>
     )
   }
-  return (
-    <div className="teamContainer">
-      <p>Acesso negado!</p>
-    </div>
-  )
+  return <AccessDenied />
 }

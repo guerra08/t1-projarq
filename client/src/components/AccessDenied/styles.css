@@ -1,0 +1,12 @@
+.deniedContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+.text{
+    margin-left: 0;
+    color: #5a5a5a;
+    font-size: 4rem;
+}

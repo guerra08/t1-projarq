@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import NavBar from '../../components/NavBar'
 import {checkAccess} from '../../utils/access'
+import AccessDenied from '../../components/AccessDenied'
 import './styles.css'
 import TeamList from '../../components/TeamList'
 import api from '../../services/api'
@@ -22,21 +23,20 @@ export default function EvaluateTeam() {
     await setTeams(data)
   }
 
-  if(checkAccess("professors")){
+  if (checkAccess('professors')) {
     return (
       <>
         <NavBar type={localStorage.getItem('userType')}/>
         <div className="listContainer">
           <div className="titleEvaluate">Selecione um time para avaliar</div>
-          <TeamList disableButtonTeam={false} data={teams} deleteRemovesFromDatabase={false}/>
+          <TeamList
+            disableButtonTeam={false}
+            data={teams}
+            deleteRemovesFromDatabase={false}
+          />
         </div>
       </>
     )
   }
-  return (
-    <div className="listContainer">
-      <p>Acesso negado!</p>
-    </div>
-  )
-  
+  return <AccessDenied />
 }
