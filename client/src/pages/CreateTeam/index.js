@@ -28,14 +28,15 @@ export default function CreateTeam() {
   async function handleDataAndAccess() {
     if (checkAccess('students')) {
       await setHasAccess(true)
+      console.log('ok')
       const team = (
         await api.get('/students/team', {
           headers: { Authorization: localStorage.getItem('userId') },
         })
-      ).data
-      if (team) {
+      )
+      if (team.status === 200) {
         await setHasTeam(true)
-        await setMyTeam(team)
+        await setMyTeam(team.data)
       } else {
         let data = (await api.get('/students')).data
         let users = []
@@ -101,11 +102,11 @@ export default function CreateTeam() {
           <NavBar type={localStorage.getItem('userType')}></NavBar>
           <div className="alreadyCreated">
             {myTeam.created_by ===
-            Number.parseInt(localStorage.getItem('userId')) ? (
-              <p className="createdTitle">Você já cadastrou um time!</p>
-            ) : (
-              <p className="createdTitle">Você já foi cadastrado em um time!</p>
-            )}
+              Number.parseInt(localStorage.getItem('userId')) ? (
+                <p className="createdTitle">Você já cadastrou um time!</p>
+              ) : (
+                <p className="createdTitle">Você já foi cadastrado em um time!</p>
+              )}
             <FaThumbsUp size={80} color="#4CD964" />
           </div>
         </>
@@ -126,12 +127,12 @@ export default function CreateTeam() {
               {selectedUsers.length > 4 ? (
                 <Alert variant="danger">Equipe Cheia!</Alert>
               ) : (
-                <Select
-                  onChange={(selected) => handleChange(selected)}
-                  options={data}
-                  placeholder="Selecione um Aluno"
-                />
-              )}
+                  <Select
+                    onChange={(selected) => handleChange(selected)}
+                    options={data}
+                    placeholder="Selecione um Aluno"
+                  />
+                )}
             </div>
           </div>
           {selectedUsers.length === 0 ? (
@@ -140,24 +141,24 @@ export default function CreateTeam() {
               <p>Você não sugeriu um time ainda!</p>
             </div>
           ) : (
-            <div className="users">
-              {selectedUsers.map((user) => (
-                <div key={user.id} className="userContainer">
-                  <div className="user">
-                    <button
-                      className="removeUser"
-                      onClick={() => handleClick(user.id)}
-                    >
-                      <TiDelete size={48} color="#FF3B30" />
-                    </button>
-                    <img alt="img" src={user.avatar}></img>
-                    <p>{user.name}</p>
-                    <p>{user.course_name}</p>
+              <div className="users">
+                {selectedUsers.map((user) => (
+                  <div key={user.id} className="userContainer">
+                    <div className="user">
+                      <button
+                        className="removeUser"
+                        onClick={() => handleClick(user.id)}
+                      >
+                        <TiDelete size={48} color="#FF3B30" />
+                      </button>
+                      <img alt="img" src={user.avatar}></img>
+                      <p>{user.name}</p>
+                      <p>{user.course_name}</p>
+                    </div>
                   </div>
-                </div>
-              ))}
-            </div>
-          )}
+                ))}
+              </div>
+            )}
 
           {hasInserted ? (
             <button className="createdTeam" disabled="true">
@@ -171,15 +172,15 @@ export default function CreateTeam() {
               Criar Time
             </button>
           ) : (
-            <div>
-              <p className="disabled">
-                Pelo menos 2 participantes de cursos distintos
+                <div>
+                  <p className="disabled">
+                    Pelo menos 2 participantes de cursos distintos
               </p>
-              <button className="unavailable" disabled="true">
-                Indisponível
+                  <button className="unavailable" disabled="true">
+                    Indisponível
               </button>
-            </div>
-          )}
+                </div>
+              )}
         </div>
       </>
     )

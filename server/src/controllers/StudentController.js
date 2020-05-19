@@ -77,7 +77,7 @@ module.exports = {
                 .where('students.code', '=', code)
                 .first()
             if(!student){
-                return res.sendStatus(404)
+                return res.sendStatus(204)
             }
             return res.json(student)
         }catch (e) {
@@ -93,7 +93,7 @@ module.exports = {
             const userId = req.headers.authorization
             const [team] = await knex.raw('select t.id, t.name, t.created_by from teams t join teams_students ts on t.id = ts.team where ts.student = ?', [userId])
             if(!team){
-                return res.sendStatus(404)
+                return res.sendStatus(204)
             }
             return res.json(team)
         }catch (e) {
