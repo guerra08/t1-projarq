@@ -12,25 +12,37 @@ import disabledSvg from '../../assets/disabled.svg'
 import getRandomSvg from '../../utils/getRandomSvg'
 
 export default function CreateTeam() {
+  const [data, setData] = useState([])
   const [selectedUsers, setSelectedUsers] = useState([])
   const [teamName, setTeamName] = useState('')
+  const [hasAccess, setHasAccess] = useState(false)
   const [hasInserted, setHasInserted] = useState(false)
+  const [hasTeam, setHasTeam] = useState(false)
+  const [myTeam, setMyTeam] = useState({})
 
   useEffect(() => {
-    handleData()
+    handleDataAndAccess()
   }, [])
 
-  function handleData() {
-    let data = []
-    let users = []
-    api.get('/students').then((response) => {
-      data = response.data
-      data.map((user) => {
-        user['avatar'] = getRandomSvg('avatar')
-        users.push({ value: user, label: user.name })
-      })
-    })
-    return users
+  async function handleDataAndAccess() {
+    if(checkAccess('students')){
+      await setHasAccess(true)
+      const team = (await api.get('/students/team', {headers: {Authorization: localStorage.getItem("userId")}})).data
+      if(team){
+        await setHasTeam(true)
+        await setMyTeam(team)
+      }
+      else{
+        let data = (await api.get('/students')).data
+        let users = []
+
+        data.map((user) => {
+          user['avatar'] = getRandomSvg('avatar')
+          users.push({ value: user, label: user.name })
+        })
+        await setData(users)
+      }
+    }
   }
 
   async function createTeamAndAddStudents() {
@@ -76,7 +88,22 @@ export default function CreateTeam() {
     await setTeamName(e.target.value)
   }
 
-  if (checkAccess('students')) {
+  if (hasAccess) {
+    if(hasTeam){
+      return(
+          <>
+            <NavBar type={localStorage.getItem('userType')}></NavBar>
+            <div className="teamContainer">
+              {
+                (myTeam.created_by === Number.parseInt(localStorage.getItem('userId'))) ?
+                    <p>Você já cadastrou um time!</p>
+                :
+                    <p>Você já foi cadastrado em um time!</p>
+              }
+            </div>
+          </>
+      )
+    }
     return (
       <>
         <NavBar type={localStorage.getItem('userType')}></NavBar>
@@ -94,7 +121,7 @@ export default function CreateTeam() {
               ) : (
                 <Select
                   onChange={(selected) => handleChange(selected)}
-                  options={handleData()}
+                  options={data}
                   placeholder="Selecione um Aluno"
                 />
               )}

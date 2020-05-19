@@ -83,5 +83,21 @@ module.exports = {
         }catch (e) {
             return res.send(e)
         }
+    },
+
+    /**
+     * Checks if a user is in a team and returns said team.
+     */
+    async getStudentTeam(req, res){
+        try{
+            const userId = req.headers.authorization
+            const [team] = await knex.raw('select t.id, t.name, t.created_by from teams t join teams_students ts on t.id = ts.team where ts.student = ?', [userId])
+            if(!team){
+                return res.sendStatus(404)
+            }
+            return res.json(team)
+        }catch (e) {
+            return res.send(e)
+        }
     }
 }
