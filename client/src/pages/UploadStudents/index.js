@@ -3,9 +3,10 @@ import { TiDelete } from 'react-icons/ti'
 import { FiUpload } from 'react-icons/fi'
 import { Alert } from 'react-bootstrap'
 import NavBar from '../../components/NavBar'
+import AccessDenied from '../../components/AccessDenied'
 
 import api from '../../services/api'
-import {checkAccess} from '../../utils/access'
+import { checkAccess } from '../../utils/access'
 import './styles.css'
 
 import getRandomSvg from '../../utils/getRandomSvg'
@@ -42,7 +43,7 @@ export default function UploadStudents() {
     )
   }
 
-  if(checkAccess("admins")){
+  if (checkAccess('admins')) {
     return (
       <div>
         <NavBar path="delete" name="Deletar Times" />
@@ -114,9 +115,5 @@ export default function UploadStudents() {
       </div>
     )
   }
-  return(
-    <div>
-      <p>Acesso negado!</p>
-    </div>
-  )
+  return <AccessDenied />
 }

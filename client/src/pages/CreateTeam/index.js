@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react'
-import {checkAccess} from '../../utils/access'
+import { checkAccess } from '../../utils/access'
 import api from '../../services/api'
 import './styles.css'
 import Select from 'react-select'
 import { Alert } from 'react-bootstrap'
 import { TiDelete } from 'react-icons/ti'
+import AccessDenied from '../../components/AccessDenied'
 
 import disabledSvg from '../../assets/disabled.svg'
 import getRandomSvg from '../../utils/getRandomSvg'
@@ -73,8 +74,8 @@ export default function CreateTeam() {
   async function handleInputSelect(e) {
     await setTeamName(e.target.value)
   }
-  
-  if(checkAccess("students")){
+
+  if (checkAccess('students')) {
     return (
       <div className="teamContainer">
         <div className="selectContainer">
@@ -120,7 +121,7 @@ export default function CreateTeam() {
             ))}
           </div>
         )}
-  
+
         {hasInserted ? (
           <button className="createdTeam" disabled="true">
             Time Criado
@@ -142,9 +143,5 @@ export default function CreateTeam() {
       </div>
     )
   }
-  return (
-    <div className="teamContainer">
-      <p>Acesso negado!</p>
-    </div>
-  )
+  return <AccessDenied />
 }
