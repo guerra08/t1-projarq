@@ -51,7 +51,8 @@ router.get('/teams-complete', TeamController.indexComplete)
 router.get('/teams/:id', TeamController.details)
 router.post('/teams', celebrate({
     [Segments.BODY]: Joi.object().keys({
-        name: Joi.string().required()
+        name: Joi.string().required(),
+        created_by: Joi.number().required()
     })
 }), TeamController.create)
 router.delete('/teams/:id', TeamController.delete)

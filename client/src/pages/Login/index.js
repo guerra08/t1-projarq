@@ -26,7 +26,7 @@ export default function Login() {
       }
       else{
         const res = await api.post(`/${userType}/login`, { code })
-        updateLocalStorage({userType: userType, id: res.data.id, name: res.data.name})
+        updateLocalStorage({userType: userType, userId: res.data.id, name: res.data.name})
         if(userType === 'students'){
           history.push('/create')
         }

@@ -34,8 +34,9 @@ export default function CreateTeam() {
   }
 
   async function createTeamAndAddStudents() {
+    const studentId = localStorage.getItem('userId')
     const students = selectedUsers.map((student) => student.id)
-    const createdTeamId = (await api.post('/teams', { name: teamName })).data.id
+    const createdTeamId = (await api.post('/teams', { name: teamName, created_by: studentId})).data.id
     const addUsers = await api.post('/students-team', {
       teamId: createdTeamId,
       students,
@@ -58,7 +59,6 @@ export default function CreateTeam() {
   function changeButton() {
     let bool = false
     if (selectedUsers.length >= 2) {
-      // console.log(selectedUsers[0])
       let name = selectedUsers[0].course_name
       for (let i = 1; i < selectedUsers.length; i++) {
         name !== selectedUsers[i].course_name ? (bool = true) : (bool = false)
