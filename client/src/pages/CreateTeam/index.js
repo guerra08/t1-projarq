@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react'
 import NavBar from '../../components/NavBar'
-import {checkAccess} from '../../utils/access'
+import { checkAccess } from '../../utils/access'
 import api from '../../services/api'
 import './styles.css'
 import Select from 'react-select'
 import { Alert } from 'react-bootstrap'
 import { TiDelete } from 'react-icons/ti'
+import { FaThumbsUp } from 'react-icons/fa'
 import AccessDenied from '../../components/AccessDenied'
 
 import disabledSvg from '../../assets/disabled.svg'
@@ -25,14 +26,17 @@ export default function CreateTeam() {
   }, [])
 
   async function handleDataAndAccess() {
-    if(checkAccess('students')){
+    if (checkAccess('students')) {
       await setHasAccess(true)
-      const team = (await api.get('/students/team', {headers: {Authorization: localStorage.getItem("userId")}})).data
-      if(team){
+      const team = (
+        await api.get('/students/team', {
+          headers: { Authorization: localStorage.getItem('userId') },
+        })
+      ).data
+      if (team) {
         await setHasTeam(true)
         await setMyTeam(team)
-      }
-      else{
+      } else {
         let data = (await api.get('/students')).data
         let users = []
 
@@ -48,7 +52,9 @@ export default function CreateTeam() {
   async function createTeamAndAddStudents() {
     const studentId = localStorage.getItem('userId')
     const students = selectedUsers.map((student) => student.id)
-    const createdTeamId = (await api.post('/teams', { name: teamName, created_by: studentId})).data.id
+    const createdTeamId = (
+      await api.post('/teams', { name: teamName, created_by: studentId })
+    ).data.id
     const addUsers = await api.post('/students-team', {
       teamId: createdTeamId,
       students,
@@ -89,19 +95,20 @@ export default function CreateTeam() {
   }
 
   if (hasAccess) {
-    if(hasTeam){
-      return(
-          <>
-            <NavBar type={localStorage.getItem('userType')}></NavBar>
-            <div className="teamContainer">
-              {
-                (myTeam.created_by === Number.parseInt(localStorage.getItem('userId'))) ?
-                    <p>Você já cadastrou um time!</p>
-                :
-                    <p>Você já foi cadastrado em um time!</p>
-              }
-            </div>
-          </>
+    if (hasTeam) {
+      return (
+        <>
+          <NavBar type={localStorage.getItem('userType')}></NavBar>
+          <div className="alreadyCreated">
+            {myTeam.created_by ===
+            Number.parseInt(localStorage.getItem('userId')) ? (
+              <p className="createdTitle">Você já cadastrou um time!</p>
+            ) : (
+              <p className="createdTitle">Você já foi cadastrado em um time!</p>
+            )}
+            <FaThumbsUp size={80} color="#4CD964" />
+          </div>
+        </>
       )
     }
     return (
@@ -151,13 +158,16 @@ export default function CreateTeam() {
               ))}
             </div>
           )}
-    
+
           {hasInserted ? (
             <button className="createdTeam" disabled="true">
               Time Criado
             </button>
           ) : changeButton() ? (
-            <button className="button" onClick={() => createTeamAndAddStudents()}>
+            <button
+              className="button"
+              onClick={() => createTeamAndAddStudents()}
+            >
               Criar Time
             </button>
           ) : (
