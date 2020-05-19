@@ -45,7 +45,7 @@ export default function UploadStudents() {
   if(checkAccess("admins")){
     return (
       <div>
-        <NavBar path="delete" name="Deletar Times" />
+        <NavBar path="delete" name="Deletar Times" type={localStorage.getItem('userType')}/>
         <div className="updateContainer">
           {!hasInserted ? (
             <>

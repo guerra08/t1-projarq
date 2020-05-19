@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import NavBar from '../../components/NavBar'
 import {checkAccess} from '../../utils/access'
 import './styles.css'
 import TeamList from '../../components/TeamList'
@@ -23,10 +24,13 @@ export default function EvaluateTeam() {
 
   if(checkAccess("professors")){
     return (
-      <div className="listContainer">
-        <div className="titleEvaluate">Selecione um time para avaliar</div>
-        <TeamList disableButtonTeam={false} data={teams} deleteRemovesFromDatabase={false}/>
-      </div>
+      <>
+        <NavBar type={localStorage.getItem('userType')}/>
+        <div className="listContainer">
+          <div className="titleEvaluate">Selecione um time para avaliar</div>
+          <TeamList disableButtonTeam={false} data={teams} deleteRemovesFromDatabase={false}/>
+        </div>
+      </>
     )
   }
   return (
