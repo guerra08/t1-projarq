@@ -15,7 +15,7 @@ module.exports = {
 
     async delete(req, res){
         try{
-            const id =  req.param.id
+            const id =  req.params.id
             const op = await knex('teams').where('id', id).delete()
             if(!op){
                 return res.sendStatus(204)
@@ -43,12 +43,13 @@ module.exports = {
             }
             let complete = []
             for (const item of teamsData) {
+                const [dbScore] = ((await knex.raw('select (sum(tr.working) +  sum(tr.process) + sum(tr.team_formation) + sum(tr.pitch) + sum(tr.innovation) / count(*)) as value from teams_ratings tr where tr.team = ?', [item.id])))
                 complete.push(
                     {
                         id: item.id,
                         name: item.name,
                         participants: ((await knex.raw('select s.name from teams_students ts, students s where ts.team = ? and ts.student = s.id', [item.id]))),
-                        score: ((await knex.raw('select (sum(tr.working) +  sum(tr.process) + sum(tr.team_formation) + sum(tr.pitch) + sum(tr.innovation) / count(*)) as value from teams_ratings tr where tr.id = ?', [item.id])))[0]
+                        score: (dbScore.value === null) ? '-' : dbScore.value
                     }
                 )
             }

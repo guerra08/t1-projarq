@@ -25,7 +25,7 @@ export default function DeleteTeam() {
   if (checkAccess('admins')) {
     return (
       <div>
-        <NavBar path="upload" name="Cadastrar Alunos" />
+        <NavBar path="upload" name="Cadastrar Alunos" type={'admins'}/>
         <div className="deleteContainer">
           <p className="titleDelete">Times Criados</p>
           <TeamList

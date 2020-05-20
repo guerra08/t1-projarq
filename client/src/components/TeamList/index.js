@@ -6,7 +6,7 @@ import api from '../../services/api'
 import disabledTeam from '../../assets/disabledTeam.svg'
 import evaluate from '../../utils/evaluate'
 
-export default function TeamList({ data, disableButtonTeam, deleteRemovesFromDatabase }) {
+export default function TeamList({ data, disableButtonTeam, deleteRemovesFromDatabase, whenDataIsUpdated }) {
   const [showModal, setShowModal] = useState(false)
   const [teamId, setTeamId] = useState(-1)
   const [stateData, setStateData] = useState([])
@@ -49,7 +49,7 @@ export default function TeamList({ data, disableButtonTeam, deleteRemovesFromDat
       innovation,
       team_formation: teamFormation,
     })
-    console.log(res)
+    whenDataIsUpdated()
     await setShowModal(false)
   }
 
@@ -79,9 +79,10 @@ export default function TeamList({ data, disableButtonTeam, deleteRemovesFromDat
     }
   }
 
-  function handleClick(id) {
+  async function handleClick(id) {
     if(deleteRemovesFromDatabase){
-      //API delete team
+      const op = await api.delete(`/teams/${id}`)
+      console.log(op)
     }
     setStateData(
       stateData.filter((team) => {
@@ -126,7 +127,7 @@ export default function TeamList({ data, disableButtonTeam, deleteRemovesFromDat
                         </p>
 
                         <p>
-                          Score atual: <strong>{team.score.value}</strong>
+                          Score atual: <strong>{team.score}</strong>
                         </p>
                       </div>
                     </div>
@@ -149,7 +150,7 @@ export default function TeamList({ data, disableButtonTeam, deleteRemovesFromDat
                           })}
                         </p>
                         <p>
-                          Score atual: <strong>{team.score.value}</strong>
+                          Score atual: <strong>{team.score}</strong>
                         </p>
                       </div>
                       <button

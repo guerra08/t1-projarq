@@ -33,6 +33,7 @@ export default function EvaluateTeam() {
             disableButtonTeam={false}
             data={teams}
             deleteRemovesFromDatabase={false}
+            whenDataIsUpdated={handleData}
           />
         </div>
       </>
