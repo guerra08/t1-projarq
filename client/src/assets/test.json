@@ -12,21 +12,21 @@
             "code":"321321",
             "email": "elessa@outlook.com",
             "phone": "998877665544",
-            "course": 1
+            "course": 2
         },
         { 
             "name":"Guilherme Rizzotto", 
             "code":"432432",
             "email": "guiriz@outlook.com",
             "phone": "998877665544",
-            "course": 1
+            "course": 3
         },
         { 
             "name":"João Leão", 
             "code":"543534",
             "email": "jleao@outlook.com",
             "phone": "998877665544",
-            "course": 1
+            "course": 4
         },
         { 
             "name":"Pedro Portella", 

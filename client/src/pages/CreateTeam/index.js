@@ -78,12 +78,14 @@ export default function CreateTeam() {
   function changeButton() {
     let bool = false
     if (selectedUsers.length >= 2) {
-      let name = selectedUsers[0].course_name
+      let baseCourse = selectedUsers[0].course_id
       for (let i = 1; i < selectedUsers.length; i++) {
-        name !== selectedUsers[i].course_name ? (bool = true) : (bool = false)
+        if (selectedUsers[i].course_id !== baseCourse) {
+          bool = true;
+          return bool
+        }
       }
     }
-
     return bool
   }
 

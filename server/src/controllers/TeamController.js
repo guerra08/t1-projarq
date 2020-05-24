@@ -6,7 +6,6 @@ module.exports = {
         try {
             const team = Team.createTeam(req.body)
             const [id] = await knex('teams').insert(team)
-            console.log(id)
             return res.json({"id": id})
         }catch (e) {
             return res.send(e)

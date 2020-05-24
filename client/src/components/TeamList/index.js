@@ -42,7 +42,7 @@ export default function TeamList({ data, disableButtonTeam, deleteRemovesFromDat
   async function createEvaluation() {
     const res = await api.post('/professors/evaluate', {
       team: teamId,
-      professor: 1,
+      professor: localStorage.getItem('userId'),
       working: workingSoftware,
       process,
       pitch,
@@ -54,10 +54,10 @@ export default function TeamList({ data, disableButtonTeam, deleteRemovesFromDat
   }
 
   async function evaluateButton(id, item, number) {
-    document.getElementById(id).style.boxShadow = '0 2px 3px 0 #000'
+    document.getElementById(id).style.border = '2px solid black'
     item.buttons.map((button) => {
       if (id !== button.id) {
-        document.getElementById(button.id).style.boxShadow = '0 0 0 0 #000'
+        document.getElementById(button.id).style.border = '0'
       }
     })
     switch (item.name) {
@@ -109,8 +109,6 @@ export default function TeamList({ data, disableButtonTeam, deleteRemovesFromDat
                     className="listButton"
                   >
                     <div className="insideButton">
-                      {/* {console.log(team.avatar)} */}
-                      {/* alterar com dados da api */}
                       <img src={team.avatar} alt="team"></img>
                       <div>
                         <p>

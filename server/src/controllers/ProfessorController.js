@@ -63,12 +63,23 @@ module.exports = {
     async evaluateTeam(req, res){
         try{
             const row = req.body
-            const inserted = await knex('teams_ratings').insert(row)
-            if(!inserted){
-                return res.sendStatus(400)
+            const exists = await knex('teams_ratings').select('*').where({team: row.team, professor: row.professor}).first()
+            if(exists){
+                const op = await knex('teams_ratings').where({team: row.team, professor: row.professor}).update(row);
+                if(!op){
+                    return res.sendStatus(400)
+                }
+                return res.sendStatus(200)
             }
-            return res.sendStatus(201)
+            else{
+                const inserted = await knex('teams_ratings').insert(row)
+                if(!inserted){
+                    return res.sendStatus(400)
+                }
+                return res.sendStatus(201)
+            }
         }catch (e) {
+            console.log(e)
             return res.send(e)
         }
     }
