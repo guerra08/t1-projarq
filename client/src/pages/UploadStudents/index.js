@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, {useEffect, useState} from 'react'
 import { TiDelete } from 'react-icons/ti'
 import { FiUpload } from 'react-icons/fi'
 import { Alert } from 'react-bootstrap'
@@ -13,8 +13,27 @@ import getRandomSvg from '../../utils/getRandomSvg'
 
 export default function UploadStudents() {
   const [students, setStudents] = useState([])
+  const [courses, setCourses] = useState([])
   const [hasInserted, setHasInserted] = useState(false)
   const [showAlert, setShowAlert] = useState(false)
+
+  useEffect(() => {
+    handleInitData()
+  }, [])
+
+  async function handleInitData(){
+      const data = (await api.get('/courses')).data
+      await setCourses(data)
+  }
+
+  function findCourseById(id){
+    let course;
+    if(courses){
+      course = courses.find(e => e.id === id)
+    }
+    if(course) return course.name
+    return "-"
+  }
 
   function handleChange(e) {
     let file = e.target.files[0]
@@ -81,6 +100,7 @@ export default function UploadStudents() {
                         <p>Matrícula: {student.code}</p>
                         <p>Telefone: {student.phone}</p>
                         <p>Email: {student.email}</p>
+                        <p>Curso: {findCourseById(student.course)}</p>
                       </div>
                       <button
                         className="removeTeam"
