@@ -29,7 +29,12 @@ router.post('/students', celebrate({
     })
 }), StudentController.create)
 router.delete('/students/:id', StudentController.delete)
-router.post('/students-team', StudentController.addStudentsToTeam)
+router.post('/students-team', celebrate({
+    [Segments.BODY]: Joi.object().keys({
+        teamId: Joi.number().required(),
+        students: Joi.array().required()
+    })
+}),StudentController.addStudentsToTeam)
 router.post('/students/login', StudentController.login)
 
 //Professor routes
