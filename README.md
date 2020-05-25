@@ -1,6 +1,8 @@
 # t1-projarq
 Trabalho 1 de PROJARQ - Sistema para Hackathon
 
+![GIF](./usage.gif)
+
 # Instruções para branch <i>develop</i>
 
 - <b>Git pull</b> periodicamente.
