@@ -16,7 +16,7 @@
         },
         { 
             "name":"Guilherme Rizzotto", 
-            "code":"432432",
+            "code":"123",
             "email": "guiriz@outlook.com",
             "phone": "998877665544",
             "course": 3
@@ -34,6 +34,20 @@
             "email": "pportella@outlook.com",
             "phone": "998877665544",
             "course": 1
+        },
+        { 
+            "name":"José", 
+            "code":"4444",
+            "email": "jose@outlook.com",
+            "phone": "998878877444",
+            "course": 2
+        },
+        { 
+            "name":"Antônio", 
+            "code":"5555",
+            "email": "antonio@outlook.com",
+            "phone": "998971645544",
+            "course": 3
         }
     ]
  
