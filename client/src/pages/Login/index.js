@@ -40,7 +40,6 @@ export default function Login() {
         }
       }
     } catch (error) {
-      console.log(error)
       alert('Falha no logon, tente novamente!')
     }
   }

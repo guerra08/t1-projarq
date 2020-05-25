@@ -28,7 +28,6 @@ export default function CreateTeam() {
   async function handleDataAndAccess() {
     if (checkAccess('students')) {
       await setHasAccess(1)
-      console.log('ok')
       const team = await api.get('/students/team', {
         headers: { Authorization: localStorage.getItem('userId') },
       })
