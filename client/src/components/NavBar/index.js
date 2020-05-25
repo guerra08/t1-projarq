@@ -8,15 +8,18 @@ import './styles.css'
 export default function ({ path, name, type }) {
   return (
     <Navbar fixed="top" expand="lg" variant="light">
+    <div className="nameIcon">
       {type === 'admins' ? (
         <FaUserTie size={30} className="icon" />
       ) : (
         <FaUser size={30} className="icon" />
       )}
-      <Link className="link" to={`/${path}`}>
+      <p className="name">{localStorage.getItem('name')}</p>
+    </div>
+    <Link className="link" to={`/${path}`}>
         {name}
-      </Link>
-      <Logout></Logout>
+    </Link>
+    <Logout></Logout>
     </Navbar>
   )
 }

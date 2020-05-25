@@ -35,7 +35,7 @@ export default function CreateTeam() {
         await setHasTeam(true)
         await setMyTeam(team.data)
       } else {
-        let data = (await api.get('/students')).data
+        let data = (await api.get('/students-noteam')).data
         let users = []
 
         data.map((user) => {
@@ -61,6 +61,9 @@ export default function CreateTeam() {
     })
     if (addUsers.status === 201) {
       await setHasInserted(true)
+      setTimeout(() => {
+        handleDataAndAccess();
+      }, 2000)
     }
   }
 

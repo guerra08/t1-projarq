@@ -37,6 +37,19 @@ module.exports = {
         }
     },
 
+    async indexNoTeam(req, res){
+        try{
+            const students = await knex('students')
+                .select(['students.id', 'students.name', 'students.code', 'students.email', 'students.phone',
+                    'courses.id as course_id', 'courses.name as course_name', 'courses.building as course_building'])
+                .join('courses', 'courses.id', 'students.course')
+                .whereNotIn(['students.id'], knex.select('student', ).from('teams_students'))
+            return res.json(students)
+        } catch (e) {
+            return res.send(e)
+        }
+    },
+
     async details(req, res){
         try{
             const id = req.params.id

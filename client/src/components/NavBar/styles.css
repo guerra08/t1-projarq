@@ -16,3 +16,7 @@
 .icon {
     color: #5a5a5a;
 }
+
+.nameIcon{
+    white-space: nowrap;
+}

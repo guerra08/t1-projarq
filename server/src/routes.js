@@ -16,6 +16,7 @@ router.post('/upload/create-students', AdminController.addStudentsFromFile)
 
 //Student routes
 router.get('/students', StudentController.index)
+router.get('/students-noteam', StudentController.indexNoTeam)
 router.get('/students/team', StudentController.getStudentTeam)
 router.get('/students/:ïd', StudentController.details)
 router.post('/students', celebrate({
