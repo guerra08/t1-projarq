@@ -21,17 +21,22 @@ export default function Login() {
           history.push('/upload')
         }
         else{
-          alert('Falha no logon, tente novamente!')
+          alert('Falha no login, tente novamente!')
         }
       }
       else{
         const res = await api.post(`/${userType}/login`, { code })
-        updateLocalStorage({userType: userType, userId: res.data.id, name: res.data.name})
-        if(userType === 'students'){
-          history.push('/create')
+        if(res.status !== 200){
+          alert('Falha no logon, login novamente!')
         }
-        else if(userType === 'professors'){
-          history.push('/evaluate')
+        else{
+          updateLocalStorage({userType: userType, userId: res.data.id, name: res.data.name})
+          if(userType === 'students'){
+            history.push('/create')
+          }
+          else if(userType === 'professors'){
+            history.push('/evaluate')
+          }
         }
       }
     } catch (error) {

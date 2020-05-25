@@ -16,7 +16,7 @@ export default function CreateTeam() {
   const [data, setData] = useState([])
   const [selectedUsers, setSelectedUsers] = useState([])
   const [teamName, setTeamName] = useState('')
-  const [hasAccess, setHasAccess] = useState(null)
+  const [hasAccess, setHasAccess] = useState(-1)
   const [hasInserted, setHasInserted] = useState(false)
   const [hasTeam, setHasTeam] = useState(false)
   const [myTeam, setMyTeam] = useState({})
@@ -27,7 +27,7 @@ export default function CreateTeam() {
 
   async function handleDataAndAccess() {
     if (checkAccess('students')) {
-      await setHasAccess(true)
+      await setHasAccess(1)
       console.log('ok')
       const team = await api.get('/students/team', {
         headers: { Authorization: localStorage.getItem('userId') },
@@ -46,7 +46,7 @@ export default function CreateTeam() {
         await setData(users)
       }
     } else {
-      await setHasAccess(false)
+      await setHasAccess(0)
     }
   }
 
@@ -97,7 +97,7 @@ export default function CreateTeam() {
     await setTeamName(e.target.value)
   }
 
-  if (hasAccess) {
+  if (hasAccess === 1) {
     if (hasTeam) {
       return (
         <>
@@ -186,6 +186,13 @@ export default function CreateTeam() {
         </div>
       </>
     )
+  }else if(hasAccess === 0){
+    return <AccessDenied />
   }
-  return <AccessDenied />
+  else if(hasAccess === -1){
+    return(
+        <>
+        </>
+    )
+  }
 }
