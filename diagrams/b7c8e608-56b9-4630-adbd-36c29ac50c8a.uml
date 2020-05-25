@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>DATABASE</ID>
+  <OriginalElement>b7c8e608-56b9-4630-adbd-36c29ac50c8a</OriginalElement>
+  <nodes>
+    <node x="420.375" y="0.0">b7c8e608-56b9-4630-adbd-36c29ac50c8a.TABLE:main.sqlite_master</node>
+    <node x="814.375" y="0.0">b7c8e608-56b9-4630-adbd-36c29ac50c8a.TABLE:main.knex_migrations_lock</node>
+    <node x="22.749999999999986" y="0.0">b7c8e608-56b9-4630-adbd-36c29ac50c8a.TABLE:main.courses</node>
+    <node x="20.749999999999986" y="168.0">b7c8e608-56b9-4630-adbd-36c29ac50c8a.TABLE:main.students</node>
+    <node x="601.375" y="0.0">b7c8e608-56b9-4630-adbd-36c29ac50c8a.TABLE:main.knex_migrations</node>
+    <node x="0.0" y="647.0">b7c8e608-56b9-4630-adbd-36c29ac50c8a.TABLE:main.teams_students</node>
+    <node x="168.125" y="592.0">b7c8e608-56b9-4630-adbd-36c29ac50c8a.TABLE:main.teams_ratings</node>
+    <node x="89.375" y="413.0">b7c8e608-56b9-4630-adbd-36c29ac50c8a.TABLE:main.teams</node>
+    <node x="0.0" y="865.0">b7c8e608-56b9-4630-adbd-36c29ac50c8a.TABLE:main.sqlite_sequence</node>
+    <node x="243.37500000000003" y="402.0">b7c8e608-56b9-4630-adbd-36c29ac50c8a.TABLE:main.professors</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="b7c8e608-56b9-4630-adbd-36c29ac50c8a.TABLE:main.teams_students" target="b7c8e608-56b9-4630-adbd-36c29ac50c8a.TABLE:main.teams">
+      <point x="36.0" y="-59.0" />
+      <point x="108.0" y="567.0" />
+      <point x="122.875" y="567.0" />
+      <point x="-33.5" y="59.0" />
+    </edge>
+    <edge source="b7c8e608-56b9-4630-adbd-36c29ac50c8a.TABLE:main.teams_ratings" target="b7c8e608-56b9-4630-adbd-36c29ac50c8a.TABLE:main.professors">
+      <point x="40.75" y="-114.0" />
+      <point x="290.375" y="567.0" />
+      <point x="309.375" y="567.0" />
+      <point x="0.0" y="70.0" />
+    </edge>
+    <edge source="b7c8e608-56b9-4630-adbd-36c29ac50c8a.TABLE:main.teams_students" target="b7c8e608-56b9-4630-adbd-36c29ac50c8a.TABLE:main.students">
+      <point x="-36.0" y="-59.0" />
+      <point x="36.0" y="567.0" />
+      <point x="50.0" y="567.0" />
+      <point x="50.0" y="377.0" />
+      <point x="54.749999999999986" y="377.0" />
+      <point x="-34.0" y="92.0" />
+    </edge>
+    <edge source="b7c8e608-56b9-4630-adbd-36c29ac50c8a.TABLE:main.teams_ratings" target="b7c8e608-56b9-4630-adbd-36c29ac50c8a.TABLE:main.teams">
+      <point x="-40.75" y="-114.0" />
+      <point x="208.875" y="567.0" />
+      <point x="189.875" y="567.0" />
+      <point x="33.5" y="59.0" />
+    </edge>
+    <edge source="b7c8e608-56b9-4630-adbd-36c29ac50c8a.TABLE:main.students" target="b7c8e608-56b9-4630-adbd-36c29ac50c8a.TABLE:main.courses">
+      <point x="0.0" y="-92.0" />
+      <point x="0.0" y="59.0" />
+    </edge>
+    <edge source="b7c8e608-56b9-4630-adbd-36c29ac50c8a.TABLE:main.teams" target="b7c8e608-56b9-4630-adbd-36c29ac50c8a.TABLE:main.students">
+      <point x="-2.8421709430404007E-14" y="-59.0" />
+      <point x="156.37499999999997" y="377.0" />
+      <point x="122.74999999999999" y="377.0" />
+      <point x="34.0" y="92.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="0.9219562955254943" x="503.5" y="470.5" />
+  <SelectedNodes>
+    <node>b7c8e608-56b9-4630-adbd-36c29ac50c8a.TABLE:main.sqlite_master</node>
+  </SelectedNodes>
+  <Categories>
+    <Category>Key columns</Category>
+    <Category>Columns</Category>
+    <Category>Virtual foreign keys</Category>
+  </Categories>
+</Diagram>
+

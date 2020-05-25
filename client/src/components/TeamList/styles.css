@@ -1,0 +1,152 @@
+.list {
+    overflow-y: auto;
+    height: 50rem;
+}
+
+
+.listButton2 {
+    background: none;
+	color: inherit;
+	border: none;
+	padding: 32px;
+	font: inherit;
+    outline: inherit;
+
+}
+
+.listButton {
+    transition: filter 0.2s;
+    background: none;
+	color: inherit;
+	border: none;
+	padding: 32px;
+    font: inherit;
+    cursor: pointer;
+    outline: inherit;
+}
+
+/* .listButton:focus{
+    outline: none;
+    box-shadow: none;
+} */
+
+.listButton:hover {
+    filter: brightness(90%);
+    cursor: pointer;
+}
+
+.insideButton {
+    display: flex;
+    align-items: center;
+    width: 800px;
+}
+
+/* .insideButton div:hover, .insideButton:hover {
+    filter: brightness(90%);
+} */
+
+.insideButton div {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    flex-direction: column;
+    margin-left: 4%;
+
+}
+
+
+@media only screen and (max-width: 700px) {
+    .insideButton {
+        flex-direction: column;
+    }
+    .title {
+        font-size: 1.5rem;
+    }
+}
+
+strong {
+    font-size: 1.5rem;
+    color: #5a5a5a;
+}
+
+p {
+    color: #989595;
+}
+
+.item {
+    padding: 10px;
+}
+
+.item button {
+    background-color: #5a5a5a;
+	color: inherit;
+	border: none;
+	font: inherit;
+	cursor: pointer;
+    outline: inherit;
+    border-radius: 100%;
+    width: 3rem;
+    height: 3rem;
+    margin-left: 3%;
+    font-weight: bold;
+    
+}
+
+
+
+#button1, #button6, #button11, #button16, #button21 {
+    background-color: #c23b23;
+    color: #fff;
+    transition: filter 0.2s;
+    outline: none;
+    box-shadow: none;
+}
+
+#button2, #button7, #button12, #button17, #button22 {
+    background-color: #f39a27;
+    color: #fff;
+    transition: filter 0.2s;
+    outline: none;
+    box-shadow: none;
+}
+
+#button3, #button8, #button13, #button18, #button23 {
+    background-color: #eada52;
+    color: #fff;
+    transition: filter 0.2s;
+    outline: none;
+    box-shadow: none;
+}
+
+#button4, #button9, #button14, #button19, #button24 {
+    background-color: #9bc53d;
+    color: #fff;
+    transition: filter 0.2s;
+    outline: none;
+    box-shadow: none;
+}
+
+#button5, #button10, #button15, #button20, #button25 {
+    background-color: #03c03c;
+    color: #fff;
+    transition: filter 0.2s;
+    outline: none;
+    box-shadow: none;
+}
+
+#button1:hover, #button2:hover, #button3:hover, #button4:hover, #button5:hover, #button6:hover, #button7:hover, #button8:hover, #button9:hover, #button10:hover, #button11:hover, #button12:hover, #button13:hover, #button14:hover, #button15:hover, #button16:hover, #button17:hover, #button18:hover, #button19:hover, #button20:hover, #button21:hover, #button22:hover, #button23:hover, #button24:hover, #button25:hover {
+    filter: brightness(90%);
+}
+
+.disabledTeam {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.disabledTeam p {
+    font-size: 1.4rem;
+    font-weight: bold;
+}
+

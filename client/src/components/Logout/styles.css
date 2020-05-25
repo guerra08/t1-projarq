@@ -1,0 +1,7 @@
+.logout-container{
+    display: flex;
+    flex-direction: row-reverse;
+    margin-right: 10px;
+    font-size: 1.2rem;
+    cursor: pointer;
+}

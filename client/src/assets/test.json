@@ -1,0 +1,45 @@
+
+     [
+        { 
+            "name":"Bruno Guerra", 
+            "code":"123456789",
+            "email": "gguerrabruno@outlook.com",
+            "phone": "998877665544",
+            "course": 1
+        },
+        { 
+            "name":"Eduardo Lessa", 
+            "code":"321321",
+            "email": "elessa@outlook.com",
+            "phone": "998877665544",
+            "course": 2
+        },
+        { 
+            "name":"Guilherme Rizzotto", 
+            "code":"432432",
+            "email": "guiriz@outlook.com",
+            "phone": "998877665544",
+            "course": 3
+        },
+        { 
+            "name":"João Leão", 
+            "code":"543534",
+            "email": "jleao@outlook.com",
+            "phone": "998877665544",
+            "course": 4
+        },
+        { 
+            "name":"Pedro Portella", 
+            "code":"564564",
+            "email": "pportella@outlook.com",
+            "phone": "998877665544",
+            "course": 1
+        }
+    ]
+ 
+
+
+
+
+
+

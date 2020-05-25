@@ -1,29 +1,47 @@
 import React, { useState } from 'react'
-// import { Link, useHistory } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 import { FiLogIn } from 'react-icons/fi'
 
-// import api from '../../services/api'
+import api from '../../services/api'
+import {updateLocalStorage} from '../../utils/access'
 
 import './styles.css'
 
-export default function Logon() {
-  const [id, setId] = useState('')
+export default function Login() {
+  const [code, setCode] = useState('')
   const [userType, setUserType] = useState('')
-  // const history = useHistory()
+  const history = useHistory()
 
   async function handleLogin(e) {
     e.preventDefault()
-
-    // try {
-    //   const response = await api.post('sessions', { id, userType })
-
-    //   localStorage.setItem('userId', id)
-    //   localStorage.setItem('userName', response.data.name)
-
-    //   history.push('/anotherpage')
-    // } catch (err) {
-    //   alert('Falha no login, tente novamente.')
-    // }
+    try {
+      if(userType ===  'admins'){
+        if(code ===  '12345'){
+          updateLocalStorage({userType: 'admins', userId: '666', name: 'Admin'})
+          history.push('/upload')
+        }
+        else{
+          alert('Falha no login, tente novamente!')
+        }
+      }
+      else{
+        const res = await api.post(`/${userType}/login`, { code })
+        if(res.status !== 200){
+          alert('Falha no logon, login novamente!')
+        }
+        else{
+          updateLocalStorage({userType: userType, userId: res.data.id, name: res.data.name})
+          if(userType === 'students'){
+            history.push('/create')
+          }
+          else if(userType === 'professors'){
+            history.push('/evaluate')
+          }
+        }
+      }
+    } catch (error) {
+      alert('Falha no logon, tente novamente!')
+    }
   }
 
   async function setUser(e) {
@@ -38,19 +56,23 @@ export default function Logon() {
 
           <input
             className="input"
-            placeholder="Seu ID"
-            value={id}
-            onChange={(e) => setId(e.target.value)}
+            placeholder="Seu código"
+            value={code}
+            onChange={(e) => setCode(e.target.value)}
           />
 
           <div className="option" onChange={(e) => setUser(e)}>
-            <div className="professor">
-              <input type="radio" value="professor" name="option" />
-              Professor
+            <div className="professors">
+              <input type="radio" value="professors" name="option" />
+              <p className="color">Professor</p>
             </div>
-            <div className="student">
-              <input type="radio" value="student" name="option" />
-              Aluno
+            <div className="students">
+              <input type="radio" value="students" name="option" />
+              <p className="color">Aluno</p>
+            </div>
+            <div className="admins">
+              <input type="radio" value="admins" name="option" />
+              <p className="color">Admin</p>
             </div>
           </div>
 

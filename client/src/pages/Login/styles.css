@@ -55,12 +55,18 @@
     margin-top: 4%;
   }
 
-  .professor, .student {
+  .professors, .students, .admins {
     display: flex;
     align-items: center;
     justify-content: center;
   }
 
-  .professor input, .student input {
+  .professors input, .students input, .admins input {
     margin-right: 8%;
+    
   }
+
+.color {
+  color: #5a5a5a;
+  margin-bottom: 0;
+}

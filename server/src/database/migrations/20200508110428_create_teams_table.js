@@ -3,7 +3,8 @@ exports.up = function(knex) {
     return knex.schema.createTable('teams', (table) => {
         table.increments('id')
         table.string('name').unique().notNullable()
-        table.boolean('isValid')
+        table.integer('created_by').notNullable()
+        table.foreign('created_by').references('id').inTable('students').onDelete('CASCADE')
     })
 };
 

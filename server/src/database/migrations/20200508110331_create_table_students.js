@@ -6,9 +6,9 @@ exports.up = function(knex) {
         table.string('code').unique().notNullable()
         table.string('email').unique().notNullable()
         table.string('phone').notNullable()
-
         table.integer('course').unsigned().notNullable();
-        table.foreign('course').references('id').inTable('courses');
+
+        table.foreign('course').references('courses.id').onDelete('CASCADE').onUpdate('CASCADE')
     })
 };
 

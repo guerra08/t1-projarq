@@ -2,7 +2,7 @@ module.exports = {
     createTeam(teamData){
         return {
             name: teamData.name,
-            isValid: false
+            created_by: teamData.created_by
         }
     }
 }

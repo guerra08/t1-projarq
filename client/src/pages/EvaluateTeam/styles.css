@@ -1,0 +1,15 @@
+.listContainer {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    flex-direction: column;
+    height: 100vh;
+
+}
+
+.titleEvaluate {
+    font-size: 2.4rem;
+    color: #5a5a5a;
+    font-weight: bold;
+}
+
