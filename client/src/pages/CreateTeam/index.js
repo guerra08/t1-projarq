@@ -16,7 +16,7 @@ export default function CreateTeam() {
   const [data, setData] = useState([])
   const [selectedUsers, setSelectedUsers] = useState([])
   const [teamName, setTeamName] = useState('')
-  const [hasAccess, setHasAccess] = useState(false)
+  const [hasAccess, setHasAccess] = useState(null)
   const [hasInserted, setHasInserted] = useState(false)
   const [hasTeam, setHasTeam] = useState(false)
   const [myTeam, setMyTeam] = useState({})
@@ -29,11 +29,9 @@ export default function CreateTeam() {
     if (checkAccess('students')) {
       await setHasAccess(true)
       console.log('ok')
-      const team = (
-        await api.get('/students/team', {
-          headers: { Authorization: localStorage.getItem('userId') },
-        })
-      )
+      const team = await api.get('/students/team', {
+        headers: { Authorization: localStorage.getItem('userId') },
+      })
       if (team.status === 200) {
         await setHasTeam(true)
         await setMyTeam(team.data)
@@ -47,6 +45,8 @@ export default function CreateTeam() {
         })
         await setData(users)
       }
+    } else {
+      await setHasAccess(false)
     }
   }
 
@@ -81,7 +81,7 @@ export default function CreateTeam() {
       let baseCourse = selectedUsers[0].course_id
       for (let i = 1; i < selectedUsers.length; i++) {
         if (selectedUsers[i].course_id !== baseCourse) {
-          bool = true;
+          bool = true
           return bool
         }
       }
@@ -104,11 +104,11 @@ export default function CreateTeam() {
           <NavBar type={localStorage.getItem('userType')}></NavBar>
           <div className="alreadyCreated">
             {myTeam.created_by ===
-              Number.parseInt(localStorage.getItem('userId')) ? (
-                <p className="createdTitle">Você já cadastrou um time!</p>
-              ) : (
-                <p className="createdTitle">Você já foi cadastrado em um time!</p>
-              )}
+            Number.parseInt(localStorage.getItem('userId')) ? (
+              <p className="createdTitle">Você já cadastrou um time!</p>
+            ) : (
+              <p className="createdTitle">Você já foi cadastrado em um time!</p>
+            )}
             <FaThumbsUp size={80} color="#4CD964" />
           </div>
         </>
@@ -129,12 +129,12 @@ export default function CreateTeam() {
               {selectedUsers.length > 4 ? (
                 <Alert variant="danger">Equipe Cheia!</Alert>
               ) : (
-                  <Select
-                    onChange={(selected) => handleChange(selected)}
-                    options={data}
-                    placeholder="Selecione um Aluno"
-                  />
-                )}
+                <Select
+                  onChange={(selected) => handleChange(selected)}
+                  options={data}
+                  placeholder="Selecione um Aluno"
+                />
+              )}
             </div>
           </div>
           {selectedUsers.length === 0 ? (
@@ -143,24 +143,24 @@ export default function CreateTeam() {
               <p>Você não sugeriu um time ainda!</p>
             </div>
           ) : (
-              <div className="users">
-                {selectedUsers.map((user) => (
-                  <div key={user.id} className="userContainer">
-                    <div className="user">
-                      <button
-                        className="removeUser"
-                        onClick={() => handleClick(user.id)}
-                      >
-                        <TiDelete size={48} color="#FF3B30" />
-                      </button>
-                      <img alt="img" src={user.avatar}></img>
-                      <p>{user.name}</p>
-                      <p>{user.course_name}</p>
-                    </div>
+            <div className="users">
+              {selectedUsers.map((user) => (
+                <div key={user.id} className="userContainer">
+                  <div className="user">
+                    <button
+                      className="removeUser"
+                      onClick={() => handleClick(user.id)}
+                    >
+                      <TiDelete size={48} color="#FF3B30" />
+                    </button>
+                    <img alt="img" src={user.avatar}></img>
+                    <p>{user.name}</p>
+                    <p>{user.course_name}</p>
                   </div>
-                ))}
-              </div>
-            )}
+                </div>
+              ))}
+            </div>
+          )}
 
           {hasInserted ? (
             <button className="createdTeam" disabled="true">
@@ -174,15 +174,15 @@ export default function CreateTeam() {
               Criar Time
             </button>
           ) : (
-                <div>
-                  <p className="disabled">
-                    Pelo menos 2 participantes de cursos distintos
+            <div>
+              <p className="disabled">
+                Pelo menos 2 participantes de cursos distintos
               </p>
-                  <button className="unavailable" disabled="true">
-                    Indisponível
+              <button className="unavailable" disabled="true">
+                Indisponível
               </button>
-                </div>
-              )}
+            </div>
+          )}
         </div>
       </>
     )
