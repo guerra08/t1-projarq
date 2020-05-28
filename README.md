@@ -3,8 +3,7 @@ Trabalho 1 de PROJARQ - Sistema para Hackathon
 
 ![GIF](./usage.gif)
 
-# Instruções para branch <i>develop</i>
-
-- <b>Git pull</b> periodicamente.
-- Rodar, no diretório <b>server</b>, o comando <b>npx knex migrate:latest</b> depois de dar pull.
-- Rodar <b>yarn / npm install </b> periódicamente no client e no server. 
+# Instruções para uso
+ - Ter o Node e npm / yarn instalados
+ - Clonar o projeto
+ - Executar o comando <>npm / yarn install</b> nos diretórios <b>client</b> e <b>server</b>
