@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import './styles.css'
 import { Modal, Button } from 'react-bootstrap'
 import { TiDelete } from 'react-icons/ti'
+import { FaCrown } from 'react-icons/fa'
 import api from '../../services/api'
 import disabledTeam from '../../assets/disabledTeam.svg'
 import evaluate from '../../utils/evaluate'
@@ -11,6 +12,7 @@ export default function TeamList({
   disableButtonTeam,
   deleteRemovesFromDatabase,
   whenDataIsUpdated,
+  ranked
 }) {
   const [showModal, setShowModal] = useState(false)
   const [teamId, setTeamId] = useState(-1)
@@ -116,6 +118,8 @@ export default function TeamList({
     )
   }
 
+  let count = 1
+
   return (
     <div>
       {stateData.length === 0 ? (
@@ -155,36 +159,67 @@ export default function TeamList({
                         </div>
                       </div>
                     </button>
-                  ) : (
-                      <div className="listButton2">
-                        <div className="insideButton">
-                          <img src={team.avatar} alt="team"></img>
-                          <div>
-                            <p>
-                              <strong>{team.name}</strong>
-                            </p>
-                            <p>
-                              Participantes:
+                  ) : disableButtonTeam && !ranked ? (
+                    <div className="listButton2">
+                      <div className="insideButton">
+                        <img src={team.avatar} alt="team"></img>
+                        <div>
+                          <p>
+                            <strong>{team.name}</strong>
+                          </p>
+                          <p>
+                            Participantes:
                           {team.participants.map((student) => {
-                              if (team.participants[0] === student) {
-                                return ' ' + student.name
-                              }
-                              return ', ' + student.name
-                            })}
-                            </p>
-                            <p>
-                              Score atual: <strong>{team.score}</strong>
-                            </p>
-                          </div>
-                          <button
-                            className="removeTeam"
-                            onClick={() => handleClick(team.id)}
-                          >
-                            <TiDelete size={50} color="#FF3B30" />
-                          </button>
+                            if (team.participants[0] === student) {
+                              return ' ' + student.name
+                            }
+                            return ', ' + student.name
+                          })}
+                          </p>
+                          <p>
+                            Score atual: <strong>{team.score}</strong>
+                          </p>
                         </div>
+                        <button
+                          className="removeTeam"
+                          onClick={() => handleClick(team.id)}
+                        >
+                          <TiDelete size={50} color="#FF3B30" />
+                        </button>
                       </div>
-                    )}
+                    </div>
+                  ) : ranked ?
+                        <div className="listButton2">
+                          <div className="insideButton">
+                            <img src={team.avatar} alt="team"></img>
+                            <div>
+                              <p>
+                                <strong>{team.name}</strong>
+                              </p>
+                              <p>
+                                Participantes:
+                      {team.participants.map((student) => {
+                                if (team.participants[0] === student) {
+                                  return ' ' + student.name
+                                }
+                                return ', ' + student.name
+                              })}
+                              </p>
+                              <p>
+                                Score atual: <strong>{team.score}</strong>
+                              </p>
+                            </div>
+                            <button
+                              className="removeTeam"
+                              onClick={() => handleClick(team.id)}
+                            >
+                              {count === 1 ? <FaCrown size={50} color="#eeee52" onChange={count++} /> :
+                                <strong style={{ fontSize: '2rem', color: '#000' }}>{count++}º</strong>
+                              }
+                            </button>
+                          </div>
+                        </div> :
+                        <></>}
                 </li>
               ))}
             </ul>

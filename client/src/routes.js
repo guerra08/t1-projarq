@@ -6,6 +6,7 @@ import CreateTeam from './pages/CreateTeam'
 import EvaluateTeam from './pages/EvaluateTeam'
 import UploadStudents from './pages/UploadStudents'
 import DeleteTeam from './pages/DeleteTeam'
+import RankTeams from './pages/RankTeams'
 
 export default function Routes() {
   return (
@@ -16,6 +17,7 @@ export default function Routes() {
         <Route path="/evaluate" component={EvaluateTeam} />
         <Route path="/upload" component={UploadStudents} />
         <Route path="/delete" component={DeleteTeam} />
+        <Route path="/rank" component={RankTeams} />
       </Switch>
     </BrowserRouter>
   )
