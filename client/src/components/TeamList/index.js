@@ -109,7 +109,6 @@ export default function TeamList({
   async function handleClick(id) {
     if (deleteRemovesFromDatabase) {
       const op = await api.delete(`/teams/${id}`)
-      console.log(op)
     }
     setStateData(
       stateData.filter((team) => {
@@ -122,7 +121,7 @@ export default function TeamList({
 
   return (
     <div>
-      {stateData.length === 0 ? (
+      {stateData === null || stateData.length === 0 ? (
         <div className="disabledTeam">
           <img src={disabledTeam} alt="disabledTeam"></img>
           <p>Nenhum Time Cadastrado!</p>
