@@ -50,8 +50,7 @@
     align-items: flex-start;
     justify-content: center;
     flex-direction: column;
-    margin-left: 4%;
-
+    padding: 10px;
 }
 
 
@@ -149,4 +148,5 @@ p {
     font-size: 1.4rem;
     font-weight: bold;
 }
+
 

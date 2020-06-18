@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import './styles.css'
 import { Modal, Button } from 'react-bootstrap'
 import { TiDelete } from 'react-icons/ti'
-import { FaCrown } from 'react-icons/fa'
+import { FaTrophy } from 'react-icons/fa'
 import api from '../../services/api'
 import disabledTeam from '../../assets/disabledTeam.svg'
 import evaluate from '../../utils/evaluate'
@@ -209,14 +209,15 @@ export default function TeamList({
                                 Score atual: <strong>{team.score}</strong>
                               </p>
                             </div>
-                            <button
-                              className="removeTeam"
-                              onClick={() => handleClick(team.id)}
-                            >
-                              {count === 1 ? <FaCrown size={50} color="#eeee52" onChange={count++} /> :
-                                <strong style={{ fontSize: '2rem', color: '#000' }}>{count++}º</strong>
+                            <div style={{ cursor: 'context-menu' }} className="removeTeam">
+                              {
+                                count === 1 ?
+                                  <FaTrophy size={50} color="#ffd700" onChange={count++} /> : count === 2 ?
+                                    <FaTrophy size={50} color="#c0c0c0" onChange={count++} /> : count === 3 ?
+                                      <FaTrophy size={50} color="#cd7f32" onChange={count++} /> :
+                                      <strong style={{ fontSize: '2rem', color: '#000' }}>{count++}º</strong>
                               }
-                            </button>
+                            </div>
                           </div>
                         </div> :
                         <></>}
