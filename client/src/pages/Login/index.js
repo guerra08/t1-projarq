@@ -79,7 +79,7 @@ export default function Login() {
           <button className="button" type="submit">
             Realizar login
           </button>
-          <button className="button" type="button" onClick={() => history.push('/rank')}>
+          <button style={{ backgroundColor: '#37cd37' }} className="button" type="button" onClick={() => history.push('/rank')}>
             Ver ranking dos times
           </button>
         </form>

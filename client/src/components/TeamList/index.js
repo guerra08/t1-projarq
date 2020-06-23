@@ -222,7 +222,8 @@ export default function TeamList({
                               </div>
                               :
                               <div style={{ cursor: 'context-menu' }} className="removeTeam">
-                                <p>Avaliações: {team.ratings}/3</p>
+                                <p>Avaliações: </p>
+                                <strong>{team.ratings}/3</strong>
                               </div>}
                           </div>
                         </div> :
