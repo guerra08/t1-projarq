@@ -3,7 +3,7 @@ import { Link, useHistory } from 'react-router-dom'
 import { FiLogIn } from 'react-icons/fi'
 
 import api from '../../services/api'
-import {updateLocalStorage} from '../../utils/access'
+import { updateLocalStorage } from '../../utils/access'
 
 import './styles.css'
 
@@ -15,26 +15,26 @@ export default function Login() {
   async function handleLogin(e) {
     e.preventDefault()
     try {
-      if(userType ===  'admins'){
-        if(code ===  '12345'){
-          updateLocalStorage({userType: 'admins', userId: '666', name: 'Admin'})
+      if (userType === 'admins') {
+        if (code === '12345') {
+          updateLocalStorage({ userType: 'admins', userId: '666', name: 'Admin' })
           history.push('/upload')
         }
-        else{
+        else {
           alert('Falha no login, tente novamente!')
         }
       }
-      else{
+      else {
         const res = await api.post(`/${userType}/login`, { code })
-        if(res.status !== 200){
+        if (res.status !== 200) {
           alert('Falha no logon, login novamente!')
         }
-        else{
-          updateLocalStorage({userType: userType, userId: res.data.id, name: res.data.name})
-          if(userType === 'students'){
+        else {
+          updateLocalStorage({ userType: userType, userId: res.data.id, name: res.data.name })
+          if (userType === 'students') {
             history.push('/create')
           }
-          else if(userType === 'professors'){
+          else if (userType === 'professors') {
             history.push('/evaluate')
           }
         }
@@ -77,7 +77,10 @@ export default function Login() {
           </div>
 
           <button className="button" type="submit">
-            Entrar
+            Realizar login
+          </button>
+          <button className="button" type="button" onClick={() => history.push('/rank')}>
+            Ver ranking dos times
           </button>
         </form>
       </section>
