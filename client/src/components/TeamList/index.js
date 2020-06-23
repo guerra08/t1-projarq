@@ -47,7 +47,7 @@ export default function TeamList({
   }
 
   async function createEvaluation() {
-    const res = await api.post('/professors/evaluate', {
+    await api.post('/professors/evaluate', {
       team: teamId,
       professor: localStorage.getItem('userId'),
       working: workingSoftware,
@@ -102,6 +102,8 @@ export default function TeamList({
         break
       case 'Formação do Time':
         await setTeamFormation(number)
+        break
+      default:
         break
     }
   }
@@ -208,15 +210,20 @@ export default function TeamList({
                                 Score atual: <strong>{team.score}</strong>
                               </p>
                             </div>
-                            <div style={{ cursor: 'context-menu' }} className="removeTeam">
-                              {
-                                count === 1 ?
-                                  <FaTrophy size={50} color="#ffd700" onChange={count++} /> : count === 2 ?
-                                    <FaTrophy size={50} color="#c0c0c0" onChange={count++} /> : count === 3 ?
-                                      <FaTrophy size={50} color="#cd7f32" onChange={count++} /> :
-                                      <strong style={{ fontSize: '2rem', color: '#000' }}>{count++}º</strong>
-                              }
-                            </div>
+                            {team.hasMinRatings ?
+                              <div style={{ cursor: 'context-menu' }} className="removeTeam">
+                                {
+                                  count === 1 ?
+                                    <FaTrophy size={50} color="#ffd700" onChange={count++} /> : count === 2 ?
+                                      <FaTrophy size={50} color="#c0c0c0" onChange={count++} /> : count === 3 ?
+                                        <FaTrophy size={50} color="#cd7f32" onChange={count++} /> :
+                                        <strong style={{ fontSize: '2rem', color: '#000' }}>{count++}º</strong>
+                                }
+                              </div>
+                              :
+                              <div style={{ cursor: 'context-menu' }} className="removeTeam">
+                                <p>Avaliações: {team.ratings}/3</p>
+                              </div>}
                           </div>
                         </div> :
                         <></>}

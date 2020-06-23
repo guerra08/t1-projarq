@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react'
-import NavBar from '../../components/NavBar'
 
 import './styles.css'
 import TeamList from '../../components/TeamList'
@@ -26,7 +25,6 @@ export default function RankTeams() {
 
   return (
     <>
-      <NavBar type={localStorage.getItem('userType')} />
       <div className="listContainer">
         <div className="titleEvaluate">Ranking dos Times</div>
         <TeamList

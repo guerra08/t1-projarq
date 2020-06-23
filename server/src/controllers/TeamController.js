@@ -9,13 +9,15 @@ const getDetailedTeams = async () => {
         }
         let complete = []
         for (const item of teamsData) {
-            const [dbScore] = ((await knex.raw('select (sum(tr.working) +  sum(tr.process) + sum(tr.team_formation) + sum(tr.pitch) + sum(tr.innovation)) as value from teams_ratings tr where tr.team = ?', [item.id])))
+            const [dbData] = ((await knex.raw('select count(*) as ratings, (sum(tr.working) +  sum(tr.process) + sum(tr.team_formation) + sum(tr.pitch) + sum(tr.innovation)) as value from teams_ratings tr where tr.team = ?', [item.id])))
             complete.push(
                 {
                     id: item.id,
                     name: item.name,
                     participants: ((await knex.raw('select s.name from teams_students ts, students s where ts.team = ? and ts.student = s.id', [item.id]))),
-                    score: (dbScore.value === null) ? '-' : dbScore.value
+                    score: (dbData.value === null) ? '-' : dbData.value,
+                    ratings: dbData.ratings,
+                    hasMinRatings: dbData.ratings >= 3
                 }
             )
         }
