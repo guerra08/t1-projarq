@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import './styles.css'
 import { Modal, Button } from 'react-bootstrap'
 import { TiDelete } from 'react-icons/ti'
+import { FaTrophy } from 'react-icons/fa'
 import api from '../../services/api'
 import disabledTeam from '../../assets/disabledTeam.svg'
 import evaluate from '../../utils/evaluate'
@@ -11,6 +12,7 @@ export default function TeamList({
   disableButtonTeam,
   deleteRemovesFromDatabase,
   whenDataIsUpdated,
+  ranked
 }) {
   const [showModal, setShowModal] = useState(false)
   const [teamId, setTeamId] = useState(-1)
@@ -45,7 +47,7 @@ export default function TeamList({
   }
 
   async function createEvaluation() {
-    const res = await api.post('/professors/evaluate', {
+    await api.post('/professors/evaluate', {
       team: teamId,
       professor: localStorage.getItem('userId'),
       working: workingSoftware,
@@ -101,13 +103,14 @@ export default function TeamList({
       case 'Formação do Time':
         await setTeamFormation(number)
         break
+      default:
+        break
     }
   }
 
   async function handleClick(id) {
     if (deleteRemovesFromDatabase) {
       const op = await api.delete(`/teams/${id}`)
-      console.log(op)
     }
     setStateData(
       stateData.filter((team) => {
@@ -116,9 +119,11 @@ export default function TeamList({
     )
   }
 
+  let count = 1
+
   return (
     <div>
-      {stateData.length === 0 ? (
+      {stateData === null || stateData.length === 0 ? (
         <div className="disabledTeam">
           <img src={disabledTeam} alt="disabledTeam"></img>
           <p>Nenhum Time Cadastrado!</p>
@@ -155,36 +160,74 @@ export default function TeamList({
                         </div>
                       </div>
                     </button>
-                  ) : (
-                      <div className="listButton2">
-                        <div className="insideButton">
-                          <img src={team.avatar} alt="team"></img>
-                          <div>
-                            <p>
-                              <strong>{team.name}</strong>
-                            </p>
-                            <p>
-                              Participantes:
+                  ) : disableButtonTeam && !ranked ? (
+                    <div className="listButton2">
+                      <div className="insideButton">
+                        <img src={team.avatar} alt="team"></img>
+                        <div>
+                          <p>
+                            <strong>{team.name}</strong>
+                          </p>
+                          <p>
+                            Participantes:
                           {team.participants.map((student) => {
-                              if (team.participants[0] === student) {
-                                return ' ' + student.name
-                              }
-                              return ', ' + student.name
-                            })}
-                            </p>
-                            <p>
-                              Score atual: <strong>{team.score}</strong>
-                            </p>
-                          </div>
-                          <button
-                            className="removeTeam"
-                            onClick={() => handleClick(team.id)}
-                          >
-                            <TiDelete size={50} color="#FF3B30" />
-                          </button>
+                            if (team.participants[0] === student) {
+                              return ' ' + student.name
+                            }
+                            return ', ' + student.name
+                          })}
+                          </p>
+                          <p>
+                            Score atual: <strong>{team.score}</strong>
+                          </p>
                         </div>
+                        <button
+                          className="removeTeam"
+                          onClick={() => handleClick(team.id)}
+                        >
+                          <TiDelete size={50} color="#FF3B30" />
+                        </button>
                       </div>
-                    )}
+                    </div>
+                  ) : ranked ?
+                        <div className="listButton2">
+                          <div className="insideButton">
+                            <img src={team.avatar} alt="team"></img>
+                            <div>
+                              <p>
+                                <strong>{team.name}</strong>
+                              </p>
+                              <p>
+                                Participantes:
+                      {team.participants.map((student) => {
+                                if (team.participants[0] === student) {
+                                  return ' ' + student.name
+                                }
+                                return ', ' + student.name
+                              })}
+                              </p>
+                              <p>
+                                Score atual: <strong>{team.score}</strong>
+                              </p>
+                            </div>
+                            {team.hasMinRatings ?
+                              <div style={{ cursor: 'context-menu' }} className="removeTeam">
+                                {
+                                  count === 1 ?
+                                    <FaTrophy size={50} color="#ffd700" onChange={count++} /> : count === 2 ?
+                                      <FaTrophy size={50} color="#c0c0c0" onChange={count++} /> : count === 3 ?
+                                        <FaTrophy size={50} color="#cd7f32" onChange={count++} /> :
+                                        <strong style={{ fontSize: '2rem', color: '#000' }}>{count++}º</strong>
+                                }
+                              </div>
+                              :
+                              <div style={{ cursor: 'context-menu' }} className="removeTeam">
+                                <p>Avaliações: </p>
+                                <strong>{team.ratings}/3</strong>
+                              </div>}
+                          </div>
+                        </div> :
+                        <></>}
                 </li>
               ))}
             </ul>

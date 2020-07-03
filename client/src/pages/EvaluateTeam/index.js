@@ -15,10 +15,11 @@ export default function EvaluateTeam() {
   }, [])
 
   async function handleData() {
-    const data = (await api.get('/teams-complete')).data
-    data.map((team) => {
-      team['avatar'] = getRandomSvg('team')
-    })
+    const data = (await api.get('/teams-complete?filterScore=desc')).data
+    if (data)
+      data.map((team) => {
+        team['avatar'] = getRandomSvg('team')
+      })
 
     await setTeams(data)
   }

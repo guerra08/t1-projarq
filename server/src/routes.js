@@ -34,7 +34,7 @@ router.post('/students-team', celebrate({
         teamId: Joi.number().required(),
         students: Joi.array().required()
     })
-}),StudentController.addStudentsToTeam)
+}), StudentController.addStudentsToTeam)
 router.post('/students/login', StudentController.login)
 
 //Professor routes

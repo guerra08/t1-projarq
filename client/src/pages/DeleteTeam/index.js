@@ -17,15 +17,16 @@ export default function DeleteTeam() {
 
   async function handleData() {
     const data = (await api.get('/teams-complete')).data
-    data.map((team) => {
-      team['avatar'] = getRandomSvg('team')
-    })
+    if (data)
+      data.map((team) => {
+        team['avatar'] = getRandomSvg('team')
+      })
     await setTeams(data)
   }
   if (checkAccess('admins')) {
     return (
       <div>
-        <NavBar path="upload" name="Cadastrar Alunos" type={'admins'}/>
+        <NavBar path="upload" name="Cadastrar Alunos" type={'admins'} />
         <div className="deleteContainer">
           <p className="titleDelete">Times Criados</p>
           <TeamList
