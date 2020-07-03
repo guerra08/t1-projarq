@@ -11,4 +11,4 @@ Trabalho 1 de PROJARQ - Sistema para Hackathon
 
 # Documentação de arquitetura
 
-Você pode acessar a documentação da arquitetura clicando <a href="https://docs.google.com/document/d/1zkZ9Yngo9jsB6WNxhXb-PocwqzaPT3OhPzi8VOKA1e4/edit?usp=sharing">aqui</a> ou acessando a pasta docs neste repositório.
+Você pode acessar a documentação da arquitetura clicando <a href="https://docs.google.com/document/d/1zkZ9Yngo9jsB6WNxhXb-PocwqzaPT3OhPzi8VOKA1e4/edit?usp=sharing">aqui</a> ou acessando a pasta <b>docs</b> neste repositório.
